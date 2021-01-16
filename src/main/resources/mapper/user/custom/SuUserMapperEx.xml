@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.custom.SuUserMapperEx" >
+
+  <resultMap id="ProxyFitMap" type="com.xm.cpsmall.module.user.serialize.dto.ProxyProfitDto" >
+    <result column="id" property="proxyUserId" jdbcType="INTEGER" />
+    <result column="nickname" property="proxyName" jdbcType="VARCHAR" />
+    <result column="head_img" property="proxyHeadImg" jdbcType="VARCHAR" />
+    <result column="proxy_num" property="proxyNum" jdbcType="INTEGER" />
+    <result column="proxy_profit" property="proxyProfit" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+    <select id="getProxyProfit" resultMap="ProxyFitMap">
+        SELECT
+            s2.id,
+            s2.nickname,
+            s2.head_img,
+            s2.create_time,
+            COUNT(DISTINCT s3.id) proxy_num,
+            proxy_profit
+        FROM
+            (SELECT s2.id,s2.nickname,s2.head_img,s2.create_time,SUM(b1.money) proxy_profit
+                FROM
+                    su_user s2
+                LEFT JOIN
+                    su_bill b1
+                    ON s2.`id` = b1.`from_user_id`
+                    <choose>
+                        <when test="billState != null">
+                            AND b1.state = #{billState}
+                        </when>
+                        <otherwise>
+                            AND b1.state != 4
+                        </otherwise>
+                    </choose>
+                WHERE
+                    s2.`parent_id` = #{userId}
+                GROUP BY s2.id
+                <if test="orderBy != null and !orderBy.contains('proxy_num')">
+                    ORDER BY ${orderBy}
+                </if>
+                <if test="start != null and size != null">
+                    LIMIT #{start},#{size}
+                </if>
+            ) s2
+        LEFT JOIN su_user s3
+            ON s2.id = s3.parent_id
+        GROUP BY s2.id
+        <if test="orderBy != null and orderBy.contains('proxy_num')">
+            ORDER BY ${orderBy}
+        </if>
+    </select>
+
+    <select id="getIndirectUserCount" resultType="java.lang.Integer">
+        SELECT COUNT(u2.id) FROM su_user u1 LEFT JOIN su_user u2 ON u2.parent_id = u1.id WHERE u1.parent_id = #{userId}
+    </select>
+
+</mapper>

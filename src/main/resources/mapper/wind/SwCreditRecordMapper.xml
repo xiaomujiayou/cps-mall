@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.wind.mapper.SwCreditRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.wind.serialize.entity.SwCreditRecordEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="change_scores" property="changeScores" jdbcType="INTEGER" />
+    <result column="scores" property="scores" jdbcType="INTEGER" />
+    <result column="change_reason" property="changeReason" jdbcType="VARCHAR" />
+    <result column="attached" property="attached" jdbcType="VARCHAR" />
+    <result column="create_stamp" property="createStamp" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.SuOrderMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.user.serialize.entity.SuOrderEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_sub_sn" property="orderSubSn" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+    <result column="platform_type" property="platformType" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="p_id" property="pId" jdbcType="VARCHAR" />
+    <result column="original_price" property="originalPrice" jdbcType="INTEGER" />
+    <result column="quantity" property="quantity" jdbcType="INTEGER" />
+    <result column="amount" property="amount" jdbcType="INTEGER" />
+    <result column="promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+    <result column="promotion_amount" property="promotionAmount" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="form_type" property="formType" jdbcType="INTEGER" />
+    <result column="share_user_id" property="shareUserId" jdbcType="INTEGER" />
+    <result column="from_app" property="fromApp" jdbcType="INTEGER" />
+    <result column="custom_parameters" property="customParameters" jdbcType="VARCHAR" />
+    <result column="cart" property="cart" jdbcType="VARCHAR" />
+    <result column="order_modify_at" property="orderModifyAt" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

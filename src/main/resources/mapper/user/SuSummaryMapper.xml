@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.SuSummaryMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.user.serialize.entity.SuSummaryEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="profit_today" property="profitToday" jdbcType="INTEGER" />
+    <result column="profit_today_last_update" property="profitTodayLastUpdate" jdbcType="VARCHAR" />
+    <result column="profit_history" property="profitHistory" jdbcType="INTEGER" />
+    <result column="profit_wait" property="profitWait" jdbcType="INTEGER" />
+    <result column="profit_ready" property="profitReady" jdbcType="INTEGER" />
+    <result column="profit_cash" property="profitCash" jdbcType="INTEGER" />
+    <result column="total_coupon" property="totalCoupon" jdbcType="INTEGER" />
+    <result column="total_buy" property="totalBuy" jdbcType="INTEGER" />
+    <result column="total_share" property="totalShare" jdbcType="INTEGER" />
+    <result column="total_proxy_user" property="totalProxyUser" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

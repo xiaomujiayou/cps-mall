@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.cron.mapper.custom.ScBillPayMapperEx">
+
+    <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.cron.serialize.entity.ScBillPayEntity">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="open_id" property="openId" jdbcType="VARCHAR"/>
+        <result column="bill_ids" property="billIds" jdbcType="VARCHAR"/>
+        <result column="total_money" property="totalMoney" jdbcType="INTEGER"/>
+        <result column="state" property="state" jdbcType="INTEGER"/>
+        <result column="process_id" property="processId" jdbcType="INTEGER"/>
+        <result column="process_sn" property="processSn" jdbcType="VARCHAR"/>
+        <result column="pay_sys_sn" property="paySysSn" jdbcType="VARCHAR"/>
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="genPayBill" resultMap="BaseResultMap">
+        SELECT
+            s.user_id,
+            s.`open_id`,
+            GROUP_CONCAT(s.`bill_id`) AS bill_ids,
+            SUM(s.`money`) AS total_money
+        FROM
+            `sc_wait_pay_bill` s,
+        (
+            SELECT
+                user_id,
+                SUM(money) AS t_money
+            FROM
+                `sc_wait_pay_bill`
+            WHERE
+                state = 1
+                <if test="timeline != null">
+                    <![CDATA[ AND create_time < #{timeline} ]]>
+                </if>
+            GROUP BY
+                user_id
+            <if test="minMoney != null">
+                <![CDATA[ HAVING t_money > #{minMoney} ]]>
+            </if>
+            LIMIT #{start},#{end}
+        ) o
+        WHERE
+        s.`user_id` = o.user_id
+        AND
+        state = 1
+        <if test="timeline != null">
+            <![CDATA[ AND create_time < #{timeline} ]]>
+        </if>
+        GROUP BY s.user_id
+    </select>
+
+    <select id="totalGenPayBill" resultType="java.lang.Integer">
+        SELECT
+            COUNT(*)
+        FROM
+        (
+            SELECT
+                user_id,
+                SUM(money) AS t_money
+            FROM
+                `sc_wait_pay_bill`
+            WHERE
+                state = 1
+                <if test="timeline != null">
+                    <![CDATA[ AND create_time < #{timeline} ]]>
+                </if>
+            GROUP BY
+                user_id
+            <if test="minMoney != null">
+                <![CDATA[ HAVING t_money > #{minMoney} ]]>
+            </if>
+        ) o
+    </select>
+
+    <select id="getBillProfit" resultType="java.lang.Integer">
+        SELECT
+            SUM(money)
+        FROM
+            `sc_wait_pay_bill`
+        <where>
+            <if test="userId != null">
+                AND user_id = #{userId}
+            </if>
+            <if test="billId != null">
+                AND bill_id = #{billId}
+            </if>
+            <if test="state != null">
+                AND state = #{state}
+            </if>
+<!--            <if test="states != null">-->
+<!--                AND state IN-->
+<!--                <foreach collection="states" item="state" index="index" open="(" close=")" separator=",">-->
+<!--                    #{state}-->
+<!--                </foreach>-->
+<!--            </if>-->
+            <if test="createStart != null and createEnd != null">
+                AND create_time BETWEEN #{createStart} AND #{createEnd}
+            </if>
+        </where>
+    </select>
+</mapper>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.wind.mapper.SwCreditBillBindRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.wind.serialize.entity.SwCreditBillBindRecordEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="goods_name" property="goodsName" jdbcType="VARCHAR" />
+    <result column="bill_sn" property="billSn" jdbcType="VARCHAR" />
+    <result column="bill_money" property="billMoney" jdbcType="INTEGER" />
+    <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="bind_scores" property="bindScores" jdbcType="INTEGER" />
+    <result column="un_bind_scores" property="unBindScores" jdbcType="INTEGER" />
+    <result column="un_bind_reason" property="unBindReason" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

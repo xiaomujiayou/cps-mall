@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.SuPidMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.user.serialize.entity.SuPidEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="pdd" property="pdd" jdbcType="VARCHAR" />
+    <result column="jd" property="jd" jdbcType="VARCHAR" />
+    <result column="mgj" property="mgj" jdbcType="VARCHAR" />
+    <result column="tb" property="tb" jdbcType="VARCHAR" />
+    <result column="wph" property="wph" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

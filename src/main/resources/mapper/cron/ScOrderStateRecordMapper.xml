@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.cron.mapper.ScOrderStateRecordMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.cron.serialize.entity.ScOrderStateRecordEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+    <result column="order_sub_sn" property="orderSubSn" jdbcType="VARCHAR" />
+    <result column="platform_type" property="platformType" jdbcType="INTEGER" />
+    <result column="origin_state" property="originState" jdbcType="VARCHAR" />
+    <result column="origin_state_des" property="originStateDes" jdbcType="VARCHAR" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="res" property="res" jdbcType="VARCHAR" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

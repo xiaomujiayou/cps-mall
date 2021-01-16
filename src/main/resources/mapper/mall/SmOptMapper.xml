@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.mall.mapper.SmOptMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.mall.serialize.entity.SmOptEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="pdd_opt_id" property="pddOptId" jdbcType="VARCHAR" />
+    <result column="jd_opt_id" property="jdOptId" jdbcType="VARCHAR" />
+    <result column="mgj_opt_id" property="mgjOptId" jdbcType="VARCHAR" />
+    <result column="tb_opt_id" property="tbOptId" jdbcType="VARCHAR" />
+    <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+    <result column="level" property="level" jdbcType="INTEGER" />
+    <result column="img" property="img" jdbcType="VARCHAR" />
+    <result column="sort" property="sort" jdbcType="INTEGER" />
+    <result column="disable" property="disable" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

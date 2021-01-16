@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.activite.mapper.custom.SaBillMapperEx" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.activite.serialize.bo.BillActiveBo" >
+    <result column="b_id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="active_id" property="activeId" jdbcType="INTEGER" />
+    <result column="b_type" property="type" jdbcType="INTEGER" />
+    <result column="b_money" property="money" jdbcType="INTEGER" />
+    <result column="attach" property="attach" jdbcType="VARCHAR" />
+    <result column="attach_des" property="attachDes" jdbcType="VARCHAR" />
+    <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="b_state" property="state" jdbcType="INTEGER" />
+    <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="b_create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+    <association property="saActiveEntity" javaType="com.xm.cpsmall.module.activite.serialize.entity.SaActiveEntity">
+      <result column="a_id" property="id" jdbcType="INTEGER" />
+      <result column="name" property="name" jdbcType="VARCHAR" />
+      <result column="des" property="des" jdbcType="VARCHAR" />
+      <result column="banner_img" property="bannerImg" jdbcType="VARCHAR" />
+      <result column="detail_url" property="detailUrl" jdbcType="VARCHAR" />
+      <result column="video_study_url" property="videoStudyUrl" jdbcType="VARCHAR" />
+      <result column="a_type" property="type" jdbcType="INTEGER" />
+      <result column="a_state" property="state" jdbcType="INTEGER" />
+      <result column="user_action" property="userAction" jdbcType="VARCHAR" />
+      <result column="reward_type" property="rewardType" jdbcType="INTEGER" />
+      <result column="a_money" property="money" jdbcType="INTEGER" />
+      <result column="weight" property="weight" jdbcType="INTEGER" />
+      <result column="days" property="days" jdbcType="INTEGER" />
+      <result column="times" property="times" jdbcType="INTEGER" />
+      <result column="a_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+
+
+  <select id="totalProfit" resultType="java.lang.Integer">
+    SELECT SUM(money) FROM sa_bill
+      <where>
+        <if test="userId != null">
+          AND user_id = #{userId}
+        </if>
+        <if test="activeId != null">
+          AND active_id = #{activeId}
+        </if>
+        <if test="type != null">
+          AND type = #{type}
+        </if>
+        <if test="state != null">
+          AND state = #{state}
+        </if>
+      </where>
+  </select>
+
+  <select id="getList" resultMap="BaseResultMap">
+    SELECT
+      *,
+      sb.id as b_id,
+      sb.type as b_type,
+      sb.money as b_money,
+      sb.state as b_state,
+      sb.create_time as b_create_time,
+      sa.id as a_id,
+      sa.type as a_type,
+      sa.money as a_money,
+      sa.state as a_state,
+      sa.create_time as a_create_time
+    FROM
+        `sa_bill` sb
+    LEFT JOIN
+        `sa_active` sa ON sb.`active_id` = sa.`id`
+    <where>
+      <if test="userId != null">
+        AND user_id = #{userId}
+      </if>
+      <if test="activeId != null">
+        AND sb.active_id = #{activeId}
+      </if>
+      <if test="type != null">
+        AND sb.type = #{type}
+      </if>
+      <if test="state != null">
+        AND sb.state = #{state}
+      </if>
+    </where>
+    ORDER BY sb.create_time DESC
+  </select>
+</mapper>

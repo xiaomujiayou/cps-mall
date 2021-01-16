@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.mall.mapper.SmProductMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.mall.serialize.entity.SmProductEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="type" property="type" jdbcType="INTEGER" />
+    <result column="goods_id" property="goodsId" jdbcType="VARCHAR" />
+    <result column="goods_thumbnail_url" property="goodsThumbnailUrl" jdbcType="VARCHAR" />
+    <result column="goods_gallery_urls" property="goodsGalleryUrls" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="original_price" property="originalPrice" jdbcType="INTEGER" />
+    <result column="coupon_price" property="couponPrice" jdbcType="INTEGER" />
+    <result column="coupon_start_fee" property="couponStartFee" jdbcType="INTEGER" />
+    <result column="cash_price" property="cashPrice" jdbcType="INTEGER" />
+    <result column="mall_id" property="mallId" jdbcType="VARCHAR" />
+    <result column="mall_name" property="mallName" jdbcType="VARCHAR" />
+    <result column="mall_type" property="mallType" jdbcType="VARCHAR" />
+    <result column="mall_cps" property="mallCps" jdbcType="INTEGER" />
+    <result column="sales_tip" property="salesTip" jdbcType="VARCHAR" />
+    <result column="has_coupon" property="hasCoupon" jdbcType="INTEGER" />
+    <result column="coupon_id" property="couponId" jdbcType="VARCHAR" />
+    <result column="promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+    <result column="service_tags" property="serviceTags" jdbcType="VARCHAR" />
+    <result column="activity_type" property="activityType" jdbcType="VARCHAR" />
+    <result column="opt_id" property="optId" jdbcType="VARCHAR" />
+    <result column="opt_ids" property="optIds" jdbcType="VARCHAR" />
+    <result column="tb_buy_url" property="tbBuyUrl" jdbcType="VARCHAR" />
+    <result column="discount" property="discount" jdbcType="VARCHAR" />
+    <result column="comments_rate" property="commentsRate" jdbcType="VARCHAR" />
+    <result column="brand_logo_url" property="brandLogoUrl" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

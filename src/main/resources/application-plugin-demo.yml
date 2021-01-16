@@ -1,0 +1,84 @@
+#插件配置
+spring:
+  #数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+    druid:
+      initial-size: 5                               # 初始化时建立物理连接的个数
+      min-idle: 5                                   # 最小连接池数量
+      max-active: 10                                # 最大连接池数量
+      max-wait: 60000                               # 获取连接时最大等待时间，单位毫秒
+      test-while-idle: true                         # 建议配置为true，不影响性能，并且保证安全性。申请连接的时候检测，如果空闲时间大于timeBetweenEvictionRunsMillis，执行validationQuery检测连接是否有效。
+      test-on-borrow: true                          # 申请连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      test-on-return: false                         # 归还连接时执行validationQuery检测连接是否有效，做了这个配置会降低性能。
+      time-between-eviction-runs-millis: 60000      # 配置检测可以关闭的空闲连接间隔时间
+      min-evictable-idle-time-millis: 300000        # 配置连接在池中的最小生存时间
+      max-evictable-idle-time-millis: 400000        # 配置连接在池中的最小生存时间
+      validation-query: SELECT 1 FROM DUAL          # 用来检测连接是否有效的sql，要求是一个查询语句
+      use-global-data-source-stat: true             # 合并多个DruidDataSource的监控数据
+
+      #开启监控
+      filter: stat,wall                             # 监控统计的stat,以及防sql注入的wall
+      connect-properties: druid.stat.mergeSql=true;druid.stat.slowSqlMillis=500  # 通过connectProperties属性来打开mergeSql功能；慢SQL记录
+      aop-patterns: com.xm.*.service.*              # Spring监控AOP切入点，如x.y.z.service.*,配置多个英文逗号分隔
+      stat-view-servlet:
+        enabled: true
+        reset-enable: true                          # 是否能够重置数据
+        login-username: xxxxxxxxx                   # druid登录名
+        login-password: 'xxxxxxxxxxxx'              # druid登陆密码
+        url-pattern: /druid/*                       #访问路径为/druid时，跳转到StatViewServlet
+  rabbitmq:
+    connection-timeout: 15000     #连接超时时间
+    type: simple
+    #    publisher-confirms: true
+    #    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual        #消费确认置为手动
+        prefetch: 1                     #限流（海量数据，同时只能过来一条）
+        concurrency: 1                  #消费端
+        max-concurrency: 10             #最大消费端数
+        default-requeue-rejected: false #  设置为false，消息重试失败后丢弃或发往死信队列
+        retry:
+          enabled: true                 # 允许消息消费失败的重试
+          max-attempts: 3               # 消息最多消费次数3次
+          initial-interval: 10000       # 消息多次消费的间隔10秒
+
+  redis:
+    timeout: 25000
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 8
+        min-idle: 0
+#mybatis
+mybatis:
+  mapper-locations:
+    - classpath:mapper/*/*.xml
+    - classpath:mapper/*/custom/*.xml
+  type-aliases-package: tk.mybatis.springboot.model
+
+#通用mapper
+mapper:
+  mappers:
+    - tk.mybatis.mapper.common.Mapper
+  notEmpty: true
+  identity: MYSQL
+
+#分页插件
+pagehelper:
+  supportMethodsArguments: false
+  reasonable: false
+  helperDialect: mysql
+  params: count=countSql
+
+#shiro相关配置
+shiro:
+  sessionIdName: token      # session Cookie重命名
+  sessionTimeout: 7200000   # session 超时时间
+
+#日志配置
+logging:
+  config: classpath:log/logback-spring.xml

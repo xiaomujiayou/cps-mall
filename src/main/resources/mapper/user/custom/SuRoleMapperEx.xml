@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.custom.SuRoleMapperEx" >
+  <resultMap id="RolePermissionExMap" type="com.xm.cpsmall.module.user.serialize.ex.RolePermissionEx" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+    <collection property="suPermissionEntities" ofType="com.xm.cpsmall.module.user.serialize.entity.SuPermissionEntity">
+      <result column="permission_id" property="id" jdbcType="INTEGER" />
+      <result column="permission_name" property="name" jdbcType="VARCHAR" />
+      <result column="permission_des" property="des" jdbcType="VARCHAR" />
+      <result column="permission_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </collection>
+  </resultMap>
+
+  <select id="getUserRoleEx" resultMap="RolePermissionExMap" parameterType="int">
+    SELECT  sr.id,
+            sr.name,
+            sr.des,
+            sr.create_time,
+            sp.id as permission_id,
+            sp.name as permission_name,
+            sp.des as permission_des,
+            sp.create_time as permission_create_time
+    FROM su_user_role_map surm
+      LEFT JOIN su_role sr ON surm.role_id = sr.id
+      LEFT JOIN su_role_permission_map srpm ON sr.id = srpm.role_id
+      LEFT JOIN su_permission sp ON srpm.permission_id = sp.id
+    WHERE surm.user_id = #{0}
+  </select>
+</mapper>

@@ -1,0 +1,10 @@
+package com.xm.cpsmall.module.mall.serialize.form;
+
+import com.xm.cpsmall.utils.form.BaseForm;
+import lombok.Data;
+
+@Data
+public class OptionForm extends BaseForm {
+    //目标类目id
+    private Integer targetOptId;
+}

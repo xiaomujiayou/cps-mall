@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.wind.mapper.custom.SwApiRecordMapperEx">
+    <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.wind.serialize.entity.SwApiRecordEntity">
+        <result column="id" property="id" jdbcType="INTEGER"/>
+        <result column="user_id" property="userId" jdbcType="INTEGER"/>
+        <result column="app_type" property="appType" jdbcType="INTEGER"/>
+        <result column="ip" property="ip" jdbcType="VARCHAR"/>
+        <result column="ip_addr" property="ipAddr" jdbcType="VARCHAR"/>
+        <result column="ua" property="ua" jdbcType="VARCHAR"/>
+        <result column="url" property="url" jdbcType="VARCHAR"/>
+        <result column="method" property="method" jdbcType="VARCHAR"/>
+        <result column="param" property="param" jdbcType="VARCHAR"/>
+        <result column="result" property="result" jdbcType="VARCHAR"/>
+        <result column="time" property="time" jdbcType="INTEGER"/>
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <select id="getApiAverage" resultType="int">
+        SELECT
+            AVG(time)
+        FROM
+            `sw_api_record`
+        <where>
+            AND time IS NOT NULL
+            <if test="url != null">
+                AND url = #{url}
+            </if>
+            <if test="method != null">
+                AND method = #{method}
+            </if>
+            <if test="appType != null">
+                AND app_type = #{appType}
+            </if>
+            <if test="appTypeExclude != null">
+                AND app_type != #{appTypeExclude}
+            </if>
+            <if test="createStart != null and createEnd != null">
+                AND create_time BETWEEN #{createStart} AND #{createEnd}
+            </if>
+        </where>
+    </select>
+
+</mapper>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.cron.mapper.ScOrderSyncHistoryMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.cron.serialize.entity.ScOrderSyncHistoryEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="platform_type" property="platformType" jdbcType="INTEGER" />
+    <result column="start_time" property="startTime" jdbcType="TIMESTAMP" />
+    <result column="end_time" property="endTime" jdbcType="TIMESTAMP" />
+    <result column="total" property="total" jdbcType="INTEGER" />
+    <result column="current_page" property="currentPage" jdbcType="INTEGER" />
+    <result column="page_size" property="pageSize" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

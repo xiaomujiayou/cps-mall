@@ -1,0 +1,49 @@
+#阿里云OSS配置
+oss:
+  ali:
+    endpoint: oss-cn-shanghai.aliyuncs.com
+    access-key-id:
+    access-key-secret:
+    bucket-name:
+
+#拼多多配置
+pdd:
+  client-id:
+  client-secret:
+
+#蘑菇街配置
+mgj:
+  app-key:
+  app-secret:
+  url: https://openapi.mogujie.com/invoke
+  redirect-uri:
+  uid:
+  we-app-Id: wxca3957e5474b3670
+
+#唯品会配置
+wph:
+  app-key:
+  app-secret:
+  url: https://gw.vipapis.com/
+  we-app-Id: wxe9714e742209d35f
+
+#淘宝配置
+tb:
+  app-key:
+  app-secret:
+  url: http://gw.api.taobao.com/router/rest
+  adzone-id:
+
+#微信小程序配置
+wx:
+  miniapp:
+    #mini模块配置,用于对微信小程序开放能力的支持
+    configs:
+      - appid:
+        secret:
+        token:
+        aesKey:
+        msgDataFormat: JSON
+  #小程序用户登录配置，微信小程序appId,secret，和mini模块配置保持一致即可
+  appId:
+  secret:

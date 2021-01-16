@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.wind.mapper.SwCreditBillConfMapper" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.wind.serialize.entity.SwCreditBillConfEntity" >
+    <result column="id" property="id" jdbcType="INTEGER" />
+    <result column="scores" property="scores" jdbcType="INTEGER" />
+    <result column="advance_count" property="advanceCount" jdbcType="INTEGER" />
+    <result column="max_quota" property="maxQuota" jdbcType="INTEGER" />
+    <result column="quota" property="quota" jdbcType="INTEGER" />
+    <result column="pay_days" property="payDays" jdbcType="INTEGER" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+</mapper>

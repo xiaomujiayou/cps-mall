@@ -1,0 +1,28 @@
+server:
+  port: 8888
+
+#数据库相关配置
+spring:
+  datasource:
+    url: jdbc:mysql://数据库IP:端口/cps_mall?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=Asia/Shanghai
+    username:
+    password:
+
+#rabbitmq相关配置
+  rabbitmq:
+    host:
+    port: 6672
+    virtual-host: /cps-mall
+    username:
+    password: 'xxxx'
+
+#redis配置
+  redis:
+    host: 127.0.0.1
+    port: 6379
+    database: 2
+
+#日志级别和保存路径
+logging:
+  logPath: D:\java\data\log\cps-mall
+  logLevel: debug

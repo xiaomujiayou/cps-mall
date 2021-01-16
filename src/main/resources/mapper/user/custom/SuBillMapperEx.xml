@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.xm.cpsmall.module.user.mapper.custom.SuBillMapperEx" >
+  <resultMap id="BaseResultMap" type="com.xm.cpsmall.module.user.serialize.dto.BillOrderDto" >
+    <result column="b_id" property="id" jdbcType="INTEGER" />
+    <result column="user_id" property="userId" jdbcType="INTEGER" />
+    <result column="bill_sn" property="billSn" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="INTEGER" />
+    <result column="money" property="money" jdbcType="INTEGER" />
+    <result column="b_type" property="type" jdbcType="INTEGER" />
+    <result column="attach" property="attach" jdbcType="INTEGER" />
+    <result column="b_promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+    <result column="b_state" property="state" jdbcType="INTEGER" />
+    <result column="income" property="income" jdbcType="INTEGER" />
+    <result column="des" property="des" jdbcType="VARCHAR" />
+    <result column="b_fail_reason" property="failReason" jdbcType="VARCHAR" />
+    <result column="credit_state" property="creditState" jdbcType="INTEGER" />
+    <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="b_create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+
+    <association property="suOrderEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuOrderEntity" >
+      <result column="o_id" property="id" jdbcType="INTEGER" />
+      <result column="user_id" property="userId" jdbcType="INTEGER" />
+      <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+      <result column="order_sub_sn" property="orderSubSn" jdbcType="VARCHAR" />
+      <result column="product_id" property="productId" jdbcType="VARCHAR" />
+      <result column="product_name" property="productName" jdbcType="VARCHAR" />
+      <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+      <result column="platform_type" property="platformType" jdbcType="INTEGER" />
+      <result column="o_state" property="state" jdbcType="INTEGER" />
+      <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+      <result column="p_id" property="pId" jdbcType="VARCHAR" />
+      <result column="original_price" property="originalPrice" jdbcType="INTEGER" />
+      <result column="quantity" property="quantity" jdbcType="INTEGER" />
+      <result column="amount" property="amount" jdbcType="INTEGER" />
+      <result column="o_promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+      <result column="promotion_amount" property="promotionAmount" jdbcType="INTEGER" />
+      <result column="o_type" property="type" jdbcType="INTEGER" />
+      <result column="custom_parameters" property="customParameters" jdbcType="VARCHAR" />
+      <result column="order_modify_at" property="orderModifyAt" jdbcType="TIMESTAMP" />
+      <result column="o_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </association>
+    <association property="suUserEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuUserEntity">
+      <result column="u_id" property="id" jdbcType="INTEGER" />
+      <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+      <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+      <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+      <result column="sex" property="sex" jdbcType="INTEGER" />
+      <result column="open_id" property="openId" jdbcType="VARCHAR" />
+      <result column="tel" property="tel" jdbcType="VARCHAR" />
+      <result column="u_state" property="state" jdbcType="INTEGER" />
+      <result column="reason" property="reason" jdbcType="VARCHAR" />
+      <result column="city" property="city" jdbcType="VARCHAR" />
+      <result column="province" property="province" jdbcType="VARCHAR" />
+      <result column="country" property="country" jdbcType="VARCHAR" />
+      <result column="language" property="language" jdbcType="VARCHAR" />
+      <result column="last_login" property="lastLogin" jdbcType="TIMESTAMP" />
+      <result column="u_create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </association>
+  </resultMap>
+
+    <resultMap id="BaseResultMap2" type="com.xm.cpsmall.module.user.serialize.dto.OrderBillDto" >
+        <result column="o_id" property="id" jdbcType="INTEGER" />
+        <result column="user_id" property="userId" jdbcType="INTEGER" />
+        <result column="order_sn" property="orderSn" jdbcType="VARCHAR" />
+        <result column="order_sub_sn" property="orderSubSn" jdbcType="VARCHAR" />
+        <result column="product_id" property="productId" jdbcType="VARCHAR" />
+        <result column="product_name" property="productName" jdbcType="VARCHAR" />
+        <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
+        <result column="platform_type" property="platformType" jdbcType="INTEGER" />
+        <result column="o_state" property="state" jdbcType="INTEGER" />
+        <result column="fail_reason" property="failReason" jdbcType="VARCHAR" />
+        <result column="p_id" property="pId" jdbcType="VARCHAR" />
+        <result column="original_price" property="originalPrice" jdbcType="INTEGER" />
+        <result column="quantity" property="quantity" jdbcType="INTEGER" />
+        <result column="amount" property="amount" jdbcType="INTEGER" />
+        <result column="o_promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+        <result column="promotion_amount" property="promotionAmount" jdbcType="INTEGER" />
+        <result column="o_type" property="type" jdbcType="INTEGER" />
+        <result column="custom_parameters" property="customParameters" jdbcType="VARCHAR" />
+        <result column="order_modify_at" property="orderModifyAt" jdbcType="TIMESTAMP" />
+        <result column="o_create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+
+        <association property="suBillEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuBillEntity" >
+            <result column="b_id" property="id" jdbcType="INTEGER" />
+            <result column="user_id" property="userId" jdbcType="INTEGER" />
+            <result column="bill_sn" property="billSn" jdbcType="VARCHAR" />
+            <result column="from_user_id" property="fromUserId" jdbcType="INTEGER" />
+            <result column="money" property="money" jdbcType="INTEGER" />
+            <result column="b_type" property="type" jdbcType="INTEGER" />
+            <result column="attach" property="attach" jdbcType="INTEGER" />
+            <result column="b_promotion_rate" property="promotionRate" jdbcType="INTEGER" />
+            <result column="b_state" property="state" jdbcType="INTEGER" />
+            <result column="income" property="income" jdbcType="INTEGER" />
+            <result column="des" property="des" jdbcType="VARCHAR" />
+            <result column="b_fail_reason" property="failReason" jdbcType="VARCHAR" />
+            <result column="credit_state" property="creditState" jdbcType="INTEGER" />
+            <result column="pay_time" property="payTime" jdbcType="TIMESTAMP" />
+            <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+            <result column="b_create_time" property="createTime" jdbcType="TIMESTAMP" />
+        </association>
+        <association property="suUserEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuUserEntity">
+            <result column="u_id" property="id" jdbcType="INTEGER" />
+            <result column="parent_id" property="parentId" jdbcType="INTEGER" />
+            <result column="nickname" property="nickname" jdbcType="VARCHAR" />
+            <result column="head_img" property="headImg" jdbcType="VARCHAR" />
+            <result column="sex" property="sex" jdbcType="INTEGER" />
+            <result column="open_id" property="openId" jdbcType="VARCHAR" />
+            <result column="tel" property="tel" jdbcType="VARCHAR" />
+            <result column="u_state" property="state" jdbcType="INTEGER" />
+            <result column="reason" property="reason" jdbcType="VARCHAR" />
+            <result column="city" property="city" jdbcType="VARCHAR" />
+            <result column="province" property="province" jdbcType="VARCHAR" />
+            <result column="country" property="country" jdbcType="VARCHAR" />
+            <result column="language" property="language" jdbcType="VARCHAR" />
+            <result column="last_login" property="lastLogin" jdbcType="TIMESTAMP" />
+            <result column="u_create_time" property="createTime" jdbcType="TIMESTAMP" />
+        </association>
+    </resultMap>
+
+  <select id="getOrderBill" resultMap="BaseResultMap2">
+    SELECT
+        *,
+        sb.id b_id,
+        sb.type b_type,
+        sb.state b_state,
+        sb.promotion_rate b_promotion_rate,
+        sb.fail_reason b_fail_reason,
+        sb.create_time b_create_time,
+        so.id o_id,
+        so.state o_state,
+        so.type o_type,
+        so.promotion_rate o_promotion_rate,
+        so.create_time o_create_time,
+        su.id u_id,
+        su.state u_state,
+        su.create_time u_create_time
+    FROM
+        su_order so
+    LEFT JOIN
+        su_user su
+            ON su.id = so.user_id
+    LEFT JOIN
+        su_bill sb
+            ON sb.attach = so.id
+            AND sb.`user_id` = so.`user_id`
+    <where>
+        <if test="type != null and type == 1">
+            AND so.user_id = #{userId}
+        </if>
+        <if test="type != null and type == 2">
+            AND so.share_user_id = #{userId}
+        </if>
+        <if test="platformType != null">
+            AND so.platform_type = #{platformType}
+        </if>
+        <if test="state != null">
+            AND sb.state = #{state}
+        </if>
+    </where>
+  </select>
+    <select id="getBillInfo" resultMap="BaseResultMap">
+        SELECT
+            *,
+            sb.id b_id,
+            sb.type b_type,
+            sb.state b_state,
+            sb.promotion_rate b_promotion_rate,
+            sb.fail_reason b_fail_reason,
+            sb.create_time b_create_time,
+            so.id o_id,
+            so.state o_state,
+            so.type o_type,
+            so.promotion_rate o_promotion_rate,
+            so.create_time o_create_time,
+            su.id u_id,
+            su.state u_state,
+            su.create_time u_create_time
+        FROM
+            su_bill sb
+        LEFT JOIN
+            su_order so
+                ON sb.attach = so.id
+        LEFT JOIN
+            su_user su
+                ON sb.from_user_id = su.id
+        <where>
+            sb.id IN
+            <foreach collection="billIds" item="id" index="index" open="(" close=")" separator=",">
+                #{id}
+            </foreach>
+        </where>
+    </select>
+
+    <select id="getBillProfit" resultType="java.lang.Integer">
+        SELECT
+            SUM(money)
+        FROM
+            su_bill
+        <where>
+            <if test="state != null ">
+                AND state = #{state}
+            </if>
+            <if test="createStart != null and createEnd != null">
+                AND create_time BETWEEN #{createStart} AND #{createEnd}
+            </if>
+        </where>
+    </select>
+</mapper>
