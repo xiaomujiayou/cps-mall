@@ -3,7 +3,7 @@ package com.xm.cpsmall.comm.shiro.token;
 import org.apache.shiro.authc.AuthenticationToken;
 
 /**
- * 前台登录token
+ * 微信登录token
  */
 public class WeChatToken implements AuthenticationToken {
 

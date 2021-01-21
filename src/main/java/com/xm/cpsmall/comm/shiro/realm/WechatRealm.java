@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 前台登录realm
+ * 微信登录
  */
 @Component
 public class WechatRealm extends AuthorizingRealm {

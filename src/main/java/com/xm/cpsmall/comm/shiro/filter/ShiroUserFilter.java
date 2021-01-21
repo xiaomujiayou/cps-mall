@@ -1,5 +1,7 @@
 package com.xm.cpsmall.comm.shiro.filter;
 
+import cn.hutool.core.io.IoUtil;
+import cn.hutool.core.util.CharsetUtil;
 import com.alibaba.fastjson.JSON;
 import com.xm.cpsmall.utils.response.MsgEnum;
 import com.xm.cpsmall.utils.response.R;
@@ -38,7 +40,7 @@ public class ShiroUserFilter extends UserFilter {
         saveRequest(request);
         setHeader((HttpServletRequest) request,(HttpServletResponse) response);
         //自己控制返回的json数据
-        response.getWriter().write(JSON.toJSONString(R.error(MsgEnum.SYSTEM_AUTH_ERROR)));
+        IoUtil.write(response.getOutputStream(), CharsetUtil.UTF_8,true,JSON.toJSONString(R.error(MsgEnum.SYSTEM_AUTH_ERROR)));
     }
 
     /**

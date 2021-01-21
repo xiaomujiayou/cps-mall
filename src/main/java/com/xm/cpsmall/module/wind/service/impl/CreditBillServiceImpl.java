@@ -1,5 +1,6 @@
 package com.xm.cpsmall.module.wind.service.impl;
 
+import cn.hutool.core.collection.CollUtil;
 import com.github.pagehelper.PageHelper;
 import com.xm.cpsmall.comm.mq.message.config.UserActionConfig;
 import com.xm.cpsmall.comm.mq.message.impl.UserBindCreditBillMessage;
@@ -226,6 +227,8 @@ public class CreditBillServiceImpl implements CreditBillService {
 
     @Override
     public List<SmProductEntityEx> productCheck(List<SmProductEntityEx> smProductEntityExes) {
+        if(CollUtil.isEmpty(smProductEntityExes))
+            return smProductEntityExes;
         Integer userId = smProductEntityExes.get(0).getUserId();
         SwCreditRecordEntity userCredit = getUserCredit(userId);
         SwCreditBillConfEntity userCreditConf = getConfByScores(userCredit);
