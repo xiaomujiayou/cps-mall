@@ -19,7 +19,6 @@ public class IpUtil {
         if (file.exists() == false) {
             String tmpDir = System.getProperties().getProperty("java.io.tmpdir");
             DB_PATH = tmpDir + "ip.db";
-            System.out.println(DB_PATH);
             file = new File(DB_PATH);
             FileUtil.writeFromStream(IpUtil.class.getClassLoader().getResourceAsStream("classpath:ip/ip2region.db"),file);
         }
@@ -50,7 +49,7 @@ public class IpUtil {
             }
             DataBlock dataBlock = null;
             if (Util.isIpAddress(ip) == false) {
-                System.out.println("Error: Invalid ip address");
+//                System.out.println("Error: Invalid ip address");
             }
 
             dataBlock = (DataBlock) method.invoke(searcher, ip);
@@ -82,8 +81,5 @@ public class IpUtil {
             return ip;
         }
         return request.getRemoteAddr();
-    }
-    public static void main(String[] args) {
-        System.out.println(getCityInfo("175.24.97.149"));
     }
 }

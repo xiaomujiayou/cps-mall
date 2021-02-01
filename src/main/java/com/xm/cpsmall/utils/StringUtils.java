@@ -76,14 +76,4 @@ public class StringUtils {
         }
         return true;
     }
-
-
-
-
-    public static void main(String[] args){
-        System.out.println(isNumeric("56456"));
-        System.out.println(isNumeric("66"));
-        System.out.println(isNumeric("66a"));
-
-    }
 }

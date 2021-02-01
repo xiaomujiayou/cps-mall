@@ -47,7 +47,6 @@ public class WphSdkComponent {
         QueryGoodsRequest request = new QueryGoodsRequest();
         request.setKeyword(criteria.getKeyword());
         Object orderBy = criteria.getOrderBy(PlatformTypeConstant.WPH);
-        System.out.println(JSON.toJSONString(criteria,SerializerFeature.PrettyFormat));
         if(orderBy != null){
             String[] orderByInfo = orderBy.toString().split(" ");
             request.setFieldName(orderByInfo[0]);
@@ -215,7 +214,6 @@ public class WphSdkComponent {
         UnionUrlServiceHelper.UnionUrlServiceClient client = new UnionUrlServiceHelper.UnionUrlServiceClient();
         client.setClientInvocationContext(clientInvocationContext);
         UrlGenResponse response = client.genByGoodsId(Arrays.asList(goodsId),pId,UUID.randomUUID().toString());
-        System.out.println(JSON.toJSONString(response,SerializerFeature.PrettyFormat));
         UrlInfo urlInfo = response.getUrlInfoList().get(0);
         shareLinkBo.setWeAppId(wphApiConfig.getWeAppId());
         shareLinkBo.setWePagePath(urlInfo.getVipWxUrl());
@@ -223,7 +221,4 @@ public class WphSdkComponent {
         shareLinkBo.setLongUrl(urlInfo.getLongUrl());
         return shareLinkBo;
     }
-
-
-
 }

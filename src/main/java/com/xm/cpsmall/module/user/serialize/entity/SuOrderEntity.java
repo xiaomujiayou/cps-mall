@@ -1,7 +1,6 @@
 package com.xm.cpsmall.module.user.serialize.entity;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.io.Serializable;
 
@@ -49,7 +48,7 @@ public class SuOrderEntity implements Serializable{
 	private Integer platformType;
 
 	/**
-	 * 订单状态(1:已支付,2:确认收货,3:已结算,4:结算失败)
+	 * 订单状态(-1:无效订单,0:未支付,1:已支付,2:确认收货,3:已结算,4:结算失败)
 	 */
 	private Integer state;
 
@@ -87,6 +86,11 @@ public class SuOrderEntity implements Serializable{
 	 * 佣金(分)
 	 */
 	private Integer promotionAmount;
+
+	/**
+	 * 比价状态(0:正常,2:比价)
+	 */
+	private Integer priceCompareStatus;
 
 	/**
 	 * 订单类型(0:领券页面,1:红包页,2:领券页,3:题页)

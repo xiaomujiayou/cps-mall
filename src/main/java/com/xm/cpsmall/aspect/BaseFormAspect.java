@@ -12,6 +12,7 @@ import com.xm.cpsmall.module.mall.constant.PlatformTypeConstant;
 import com.xm.cpsmall.module.user.serialize.entity.SuPidEntity;
 import com.xm.cpsmall.module.user.serialize.entity.SuUserEntity;
 import com.xm.cpsmall.module.user.service.PidService;
+import com.xm.cpsmall.utils.IpUtil;
 import com.xm.cpsmall.utils.RequestHeaderConstant;
 import com.xm.cpsmall.utils.form.BaseForm;
 import com.xm.cpsmall.utils.response.MsgEnum;
@@ -60,16 +61,12 @@ public class BaseFormAspect {
                 baseForm = (BaseForm)parameters[i].getType().newInstance();
 
             //装配真实IP
-            String ip = request.getHeader(RequestHeaderConstant.IP);
+            String ip = IpUtil.getIp(request);
             baseForm.setIp(ip);
 
             //装配userId
             if(baseForm.getUserId() == null){
                 Annotation annotation = parameters[i].getAnnotation(LoginUser.class);
-//                HttpSession session = request.getSession();
-//                Object user = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
-//                SimplePrincipalCollection principal = (SimplePrincipalCollection)user;
-//                SuUserEntity suUserEntity = principal.oneByType(SuUserEntity.class);
                 Object userObj = request.getSession().getAttribute(RequestHeaderConstant.USER_INFO);
                 if(annotation != null && ((LoginUser)annotation).necessary() && userObj == null){
                     throw new GlobleException(MsgEnum.SYSTEM_INVALID_USER_ERROR);

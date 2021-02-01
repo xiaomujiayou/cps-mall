@@ -130,6 +130,7 @@ public class PddTaskServiceImpl extends AbsTask {
         orderEntity.setType(item.getType());
         orderEntity.setCustomParameters(item.getCustomParameters());
         orderEntity.setOrderModifyAt(new Date(item.getOrderModifyAt() * 1000));
+        orderEntity.setPriceCompareStatus(item.getPriceCompareStatus());
 
         OrderWithResBo orderWithResBo = new OrderWithResBo();
         orderWithResBo.setSuOrderEntity(orderEntity);
@@ -167,6 +168,7 @@ public class PddTaskServiceImpl extends AbsTask {
         orderEntity.setType(item.getType());
         orderEntity.setCustomParameters(item.getCustomParameters());
         orderEntity.setOrderModifyAt(new Date(item.getOrderModifyAt() * 1000));
+        orderEntity.setPriceCompareStatus(item.getPriceCompareStatus());
 
         OrderWithResBo orderWithResBo = new OrderWithResBo();
         orderWithResBo.setSuOrderEntity(orderEntity);

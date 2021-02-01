@@ -27,14 +27,13 @@ public class HelpServiceImpl implements HelpService {
         if(configEntity == null)
             return null;
         helpConfig = configEntity.getVal().equals("1");
-
         if(!helpConfig)
             return null;
 
         PageHelper.startPage(1,1).count(false);
         Example example = new Example(SmHelpEntity.class);
         example.createCriteria().andLike("url","%" + url + "%")
-                .andEqualTo("state",1);
+                .andNotEqualTo("state",0);
         SmHelpEntity smHelpEntity = smHelpMapper.selectOneByExample(example);
         return smHelpEntity;
     }

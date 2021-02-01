@@ -47,3 +47,19 @@ wx:
   #小程序用户登录配置，微信小程序appId,secret，和mini模块配置保持一致即可
   appId:
   secret:
+  #微信企业付款
+  pay:
+    appId:
+    mchId:
+    mchKey:
+    keyPath: classpath:cert/文件名.p12
+    notifyUrl: http://域名/api-pay/pay/wx/order/notify
+
+#佣金自动打款配置
+profit:
+  #最小金额
+  min-money: 30
+  #付款IP
+  ip: 127.0.0.1
+  page-size: 5
+  pay-desc: 截至到 {time} 新增有效佣金

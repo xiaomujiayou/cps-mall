@@ -62,6 +62,7 @@ public class OrderController {
             vo.setCreditState(o.getSuBillEntity().getCreditState());
             vo.setCreateTime(DateUtil.format(o.getCreateTime(),"MM-dd HH:mm"));
             vo.setPayTime(o.getSuBillEntity().getPayTime());
+            vo.setPriceCompareStatus(o.getPriceCompareStatus());
             return vo;
         }).collect(Collectors.toList());
         PageBean<OrderBillVo> result = new PageBean<>(vos);

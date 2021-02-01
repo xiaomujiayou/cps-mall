@@ -9,4 +9,5 @@ public class HelpVo {
     private Integer width;
     private Integer height;
     private Boolean round;
+    private Integer state;
 }

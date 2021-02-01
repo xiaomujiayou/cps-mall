@@ -100,11 +100,6 @@ public class CreditBillServiceImpl implements CreditBillService {
                 lock.unlock();
         }
     }
-    public static void main(String[] args){
-        Integer a = Long.valueOf(System.currentTimeMillis()).intValue();
-        System.out.println(a);
-    }
-
 
     @Override
     public SwCreditBillConfEntity getConfByScores(SwCreditRecordEntity swCreditRecordEntity) {

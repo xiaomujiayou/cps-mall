@@ -33,6 +33,8 @@ public class OrderBillVo {
     private String stateDesc;
     //返现倒计时
     private Long countDown;
+    //比价状态(0:正常,2:比价)
+    private Integer priceCompareStatus;
 
 
     /**
@@ -83,6 +85,9 @@ public class OrderBillVo {
     }
 
     public String getStateDesc() {
+        if(priceCompareStatus == 1)
+            return "比价订单没有佣金！如何规避？";
+
         if(StrUtil.isNotBlank(stateDesc))
             return stateDesc;
         if(checkState("0-1-1")){

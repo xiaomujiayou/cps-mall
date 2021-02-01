@@ -40,6 +40,7 @@
       <result column="custom_parameters" property="customParameters" jdbcType="VARCHAR" />
       <result column="order_modify_at" property="orderModifyAt" jdbcType="TIMESTAMP" />
       <result column="o_create_time" property="createTime" jdbcType="TIMESTAMP" />
+      <result column="price_compare_status" property="priceCompareStatus" jdbcType="INTEGER" />
     </association>
     <association property="suUserEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuUserEntity">
       <result column="u_id" property="id" jdbcType="INTEGER" />
@@ -81,7 +82,7 @@
         <result column="custom_parameters" property="customParameters" jdbcType="VARCHAR" />
         <result column="order_modify_at" property="orderModifyAt" jdbcType="TIMESTAMP" />
         <result column="o_create_time" property="createTime" jdbcType="TIMESTAMP" />
-
+        <result column="price_compare_status" property="priceCompareStatus" jdbcType="INTEGER" />
 
         <association property="suBillEntity" javaType="com.xm.cpsmall.module.user.serialize.entity.SuBillEntity" >
             <result column="b_id" property="id" jdbcType="INTEGER" />

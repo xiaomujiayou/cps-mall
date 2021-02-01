@@ -18,6 +18,7 @@
     <result column="amount" property="amount" jdbcType="INTEGER" />
     <result column="promotion_rate" property="promotionRate" jdbcType="INTEGER" />
     <result column="promotion_amount" property="promotionAmount" jdbcType="INTEGER" />
+    <result column="price_compare_status" property="priceCompareStatus" jdbcType="INTEGER" />
     <result column="type" property="type" jdbcType="INTEGER" />
     <result column="form_type" property="formType" jdbcType="INTEGER" />
     <result column="share_user_id" property="shareUserId" jdbcType="INTEGER" />

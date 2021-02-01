@@ -31,7 +31,8 @@ build/
 ### VS Code ###
 .vscode/
 
-
+# 证书文件
+*.p12
 application-api-dev.yml
 application-api-prod.yml
 application-dev.yml

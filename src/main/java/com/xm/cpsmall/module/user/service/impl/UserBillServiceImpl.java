@@ -68,6 +68,9 @@ public class UserBillServiceImpl implements UserBillService {
         List<SuBillEntity> userRelatedBills = getOrderRelatedBill(order);
         if(userRelatedBills != null && userRelatedBills.size() > 0)
             return;
+        //比价订单不生产账单
+        if(order.getPriceCompareStatus() == 1)
+            return;
         OrderCustomParameters params = JSON.parseObject(order.getCustomParameters(), OrderCustomParameters.class);
         Integer shareUserId = params.getShareUserId();
         if(shareUserId == null){
