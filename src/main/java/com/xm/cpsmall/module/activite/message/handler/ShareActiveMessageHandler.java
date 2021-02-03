@@ -5,7 +5,9 @@ import com.xm.cpsmall.comm.mq.message.AbsUserActionMessage;
 import com.xm.cpsmall.comm.mq.message.impl.UserAddProxyMessage;
 import com.xm.cpsmall.module.activite.constant.ActiveConstant;
 import com.xm.cpsmall.module.activite.mapper.SaActiveMapper;
+import com.xm.cpsmall.module.activite.mapper.SaBillMapper;
 import com.xm.cpsmall.module.activite.serialize.entity.SaActiveEntity;
+import com.xm.cpsmall.module.activite.serialize.entity.SaBillEntity;
 import com.xm.cpsmall.module.activite.service.ActiviteBillService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -20,6 +22,8 @@ public class ShareActiveMessageHandler implements MessageHandler {
     private ActiviteBillService activiteBillService;
     @Autowired
     private SaActiveMapper saActiveMapper;
+    @Autowired
+    private SaBillMapper saBillMapper;
 
     @Override
     public List<Class> getType() {
@@ -34,6 +38,13 @@ public class ShareActiveMessageHandler implements MessageHandler {
                 return;
             SaActiveEntity shareActive = saActiveMapper.selectByPrimaryKey(ActiveConstant.SHARE_ACTIVE_ID);
             if(shareActive == null || shareActive.getState() != 1)
+                return;
+            //消息重复消费校验
+            SaBillEntity record = new SaBillEntity();
+            record.setUserId(userAddProxyMessage.getUserId());
+            record.setAttach(userAddProxyMessage.getProxyUser().getId().toString());
+            Integer count = saBillMapper.selectCount(record);
+            if(count > 0)
                 return;
             activiteBillService.createBill(
                     userAddProxyMessage.getUserId(),

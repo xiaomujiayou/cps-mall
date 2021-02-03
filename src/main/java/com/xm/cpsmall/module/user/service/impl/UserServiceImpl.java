@@ -41,6 +41,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.locks.Lock;
 
 @Service("userService")
@@ -115,7 +116,7 @@ public class UserServiceImpl implements UserService {
         user.setRegisterIp(ip);
         user.setCurrentIp(ip);
         user.setOpenId(openId);
-        user.setUserSn(MD5.md5(openId,""));
+        user.setUserSn(UUID.randomUUID().toString());
         user.setNickname("Su_"+ user.getUserSn().substring(0,5));
         user.setSex(0);
         user.setFromWhare(from);
