@@ -180,6 +180,7 @@
         <appender-ref ref="WARN_FILE" />
     </root>
     <logger name="com.xm" level="${log.level}"/>
+    <logger name="com.xm.cpsmall.module.cron" level="info"/>
     <!--开发环境-->
 <!--    <springProfile name="dev">-->
 <!--    </springProfile>-->

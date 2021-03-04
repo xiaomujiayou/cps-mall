@@ -244,18 +244,21 @@ public class PddSdkComponent {
      */
     @Cacheable(value = "pdd.getTopGoodsList", key = "#type + '_' + #pageNum + '_' + #pageSize ")
     public PageBean<SmProductEntity> getTopGoodsList(Integer type, String pid, Integer pageNum, Integer pageSize) throws Exception {
-        PddDdkTopGoodsListQueryRequest request = new PddDdkTopGoodsListQueryRequest();
+//        PddDdkTopGoodsListQueryRequest request = new PddDdkTopGoodsListQueryRequest();
+//        request.setOffset(PageUtil.getStart(pageNum, pageSize));
+//        request.setLimit(pageSize);
+//        request.setSortType(type);
+//        request.setPId(pid);
+//        PddDdkTopGoodsListQueryResponse response = popHttpClient.syncInvoke(request);
+        PddDdkGoodsRecommendGetRequest request = new PddDdkGoodsRecommendGetRequest();
         request.setOffset(PageUtil.getStart(pageNum, pageSize));
         request.setLimit(pageSize);
-        request.setSortType(type);
-        request.setPId(pid);
-        PddDdkTopGoodsListQueryResponse response = popHttpClient.syncInvoke(request);
-        List<SmProductEntity> list = response.getTopGoodsListGetResponse().getList().stream().map(o -> {
-            return convertGoodsList(o);
-        }).collect(Collectors.toList());
+        PddDdkGoodsRecommendGetResponse response = popHttpClient.syncInvoke(request);
+
+        List<SmProductEntity> list = response.getGoodsBasicDetailResponse().getList().stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
         return packageToPageBean(
                 list,
-                response.getTopGoodsListGetResponse().getTotal().intValue(),
+                response.getGoodsBasicDetailResponse().getTotal().intValue(),
                 pageNum,
                 pageSize);
     }

@@ -24,16 +24,16 @@
   - SpringBoot-2.1.6
   - MyBatis-3.4.6
   - Shiro
-  - [通用Mapper](https://github.com/abel533/Mapper "通用Mapper")
+  - 通用Mapper
 - 用到的类库：
   - druid
   - RedisLockRegistry：Spring分布式锁
-  - [hutool](https://github.com/looly/hutool "hutool")
-  - [ip2region：IP地址解析](https://github.com/lionsoul2014/ip2region "ip2region：IP地址解析")
-  - [easyexcel：阿里POI](https://github.com/alibaba/easyexcel "easyexcel：阿里POI")
-  - [HanLP：分词工具](https://github.com/hankcs/HanLP "HanLP：分词工具")
-  - [PageHelper：MyBatis分页插件](https://github.com/pagehelper/Mybatis-PageHelper "PageHelper：MyBatis分页插件")
-  - [weixin-java-miniapp：微信开发工具包](https://github.com/Wechat-Group/WxJava "weixin-java-miniapp：微信开发工具包")
+  - hutool
+  - ip2region：IP地址解析
+  - easyexcel：阿里POI
+  - HanLP：分词工具
+  - PageHelper：MyBatis分页插件
+  - weixin-java-miniapp：微信开发工具包
 
 #### 模块功能简介：
 - mall: 商城模块，整合淘宝、拼多多、唯品会、蘑菇街平台的SDK，抹除各个平台间的差异，提供了统一的API
@@ -108,6 +108,6 @@
        
 
 ------------
-联系我获取前端代码：
+获取前端代码：
 
 ![微信扫码](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/my.jpg?x-oss-process=image/resize,h_200,w_200 "微信扫码")
