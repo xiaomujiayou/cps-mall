@@ -6,8 +6,8 @@
 
 
 
-##### 微信扫码预览：
-![微信扫码预览](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/untitled.png?x-oss-process=image/resize,h_200,w_200 "微信扫码预览")
+##### 扫码预览：
+![扫码预览](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/untitled.png?x-oss-process=image/resize,h_200,w_200 "扫码预览")
 
 
 ------------
@@ -24,16 +24,16 @@
   - SpringBoot-2.1.6
   - MyBatis-3.4.6
   - Shiro
-  - 通用Mapper
+  - [通用Mapper](https://github.com/abel533/Mapper "通用Mapper")
 - 用到的类库：
   - druid
   - RedisLockRegistry：Spring分布式锁
-  - hutool
-  - ip2region：IP地址解析
-  - easyexcel：阿里POI
-  - HanLP：分词工具
-  - PageHelper：MyBatis分页插件
-  - weixin-java-miniapp：微信开发工具包
+  - [hutool](https://github.com/looly/hutool "hutool")
+  - [ip2region：IP地址解析](https://github.com/lionsoul2014/ip2region "ip2region：IP地址解析")
+  - [easyexcel：阿里POI](https://github.com/alibaba/easyexcel "easyexcel：阿里POI")
+  - [HanLP：分词工具](https://github.com/hankcs/HanLP "HanLP：分词工具")
+  - [PageHelper：MyBatis分页插件](https://github.com/pagehelper/Mybatis-PageHelper "PageHelper：MyBatis分页插件")
+  - [weixin-java-miniapp：微信开发工具包](https://github.com/Wechat-Group/WxJava "weixin-java-miniapp：微信开发工具包")
 
 #### 模块功能简介：
 - mall: 商城模块，整合淘宝、拼多多、唯品会、蘑菇街平台的SDK，抹除各个平台间的差异，提供了统一的API
@@ -46,7 +46,7 @@
 - pay: 支付/付款模块，为项目提供支付、付款的能力。
 - activite: 活动模块，可按规则配置相关营销活动，如：高温补贴、看视频领红包、分享返现等。
 - lottery: 道具商城，可配置添加一些功能道具，如：VIP、收益翻倍卡等营销道具。
-- mini: 小程序功能模块，提供微信小程序平台独有的功能，小程序登录、消息推送、服务认证、生成分享海报、生成二维码等。
+- mini: 小程序功能模块，提供微信小程序独有的功能，小程序登录、消息推送、服务认证、生成分享海报、生成二维码等。
 - cron: 定时任务模块，主要服务于用户订单，定时从cps平台拉取订单。
 - wind: 风控模块，防止用户恶意操作对平台造成损失
 
@@ -108,6 +108,6 @@
        
 
 ------------
-获取前端代码：
+联系我获取前端代码：
 
-![微信扫码](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/my.jpg?x-oss-process=image/resize,h_200,w_200 "微信扫码")
+![微信](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/my.jpg?x-oss-process=image/resize,h_200,w_200 "微信")
