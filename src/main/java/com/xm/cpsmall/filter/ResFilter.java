@@ -2,28 +2,17 @@ package com.xm.cpsmall.filter;
 
 
 import cn.hutool.core.io.IoUtil;
-import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.JSONObject;
-import com.xm.cpsmall.exception.GlobleException;
 import com.xm.cpsmall.utils.response.MsgEnum;
 import com.xm.cpsmall.utils.response.R;
 import com.xm.cpsmall.utils.response.ResponseWrapper;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
-import sun.java2d.loops.CustomComponent;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
-import java.util.HashMap;
-import java.util.Map;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
@@ -47,15 +36,15 @@ public class ResFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
-        ResponseWrapper responseWrapper = new ResponseWrapper((HttpServletResponse) response);
+        ResponseWrapper responseWrapper = response instanceof ResponseWrapper ? (ResponseWrapper) response : new ResponseWrapper((HttpServletResponse) response);
         //初始化请求异常状态
         EXCEPTION_FLAG.set(false);
-        chain.doFilter(request, responseWrapper);
+        chain.doFilter(request, response);
         //异常状态则直接返回
         //除接口之外的其他请求返回原格式
         if (EXCEPTION_FLAG.get() || (request.getContentType() == null || !request.getContentType().contains(APPLICATION_JSON_VALUE)) && (response.getContentType() == null || !response.getContentType().contains(APPLICATION_JSON_VALUE))){
             response.setContentLength(responseWrapper.getContent().length);
-            IoUtil.write(response.getOutputStream(), false, responseWrapper.getContent());
+            IoUtil.write(responseWrapper.getResponse().getOutputStream(), false, responseWrapper.getContent());
             return;
         }
 
@@ -72,7 +61,7 @@ public class ResFilter implements Filter {
         }else
             result = JSON.toJSONString(R.error(MsgEnum.UNKNOWN_ERROR,"未知请求类型！"));
         response.setContentLength(result.getBytes().length);
-        IoUtil.write(response.getOutputStream(), false, result.getBytes());
+        IoUtil.write(responseWrapper.getResponse().getOutputStream(), false, result.getBytes());
     }
 
     @Override

@@ -11,12 +11,13 @@ import com.xm.cpsmall.comm.mq.message.impl.UserBillStateChangeMessage;
 import com.xm.cpsmall.module.user.constant.BillStateConstant;
 import com.xm.cpsmall.module.user.constant.BillTypeConstant;
 import com.xm.cpsmall.module.user.mapper.SuOrderMapper;
-import com.xm.cpsmall.module.user.mapper.SuSummaryMapper;
 import com.xm.cpsmall.module.user.serialize.entity.SuBillEntity;
 import com.xm.cpsmall.module.user.serialize.entity.SuOrderEntity;
 import com.xm.cpsmall.module.user.serialize.entity.SuSummaryEntity;
 import com.xm.cpsmall.module.user.service.SummaryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.integration.redis.util.RedisLockRegistry;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -33,11 +34,11 @@ public class SummaryHandler implements MessageHandler {
     @Autowired
     private SummaryService summaryService;
     @Autowired
-    private SuSummaryMapper suSummaryMapper;
-    @Autowired
     private SuOrderMapper suOrderMapper;
     @Autowired
     private RedisLockRegistry redisLockRegistry;
+    @Autowired
+    private RedisTemplate redisTemplate;
 
     @Override
     public List<Class> getType() {
@@ -53,6 +54,9 @@ public class SummaryHandler implements MessageHandler {
     public void handle(AbsUserActionMessage message) {
         if(message.getUserId() == null)
             return;
+        String key = null;
+        String hashKey = null;
+        Boolean isProcess = null;
         Lock lock = null;
         try {
             lock = redisLockRegistry.obtain(SummaryHandler.class.getSimpleName() + ":" + message.getUserId());
@@ -60,6 +64,13 @@ public class SummaryHandler implements MessageHandler {
             SuSummaryEntity suSummaryEntity = summaryService.getUserSummary(message.getUserId());
             if(message instanceof UserBillCreateMessage){
                 UserBillCreateMessage userBillCreateMessage = (UserBillCreateMessage)message;
+                //验重
+                key = this.getClass().getSimpleName() + ":" + UserBillCreateMessage.class.getSimpleName();
+                hashKey = userBillCreateMessage.getUserId() + ":" + userBillCreateMessage.getSuBillEntity().getId();
+                isProcess = redisTemplate.opsForHash().putIfAbsent(key,hashKey,null);
+                if(!isProcess)
+                    return;
+
                 SuBillEntity userBill = userBillCreateMessage.getSuBillEntity();
                 if(!CollUtil.newArrayList(
                         BillTypeConstant.BUY_NORMAL,
@@ -97,6 +108,13 @@ public class SummaryHandler implements MessageHandler {
             }
             if(message instanceof UserBillStateChangeMessage){
                 UserBillStateChangeMessage userBillStateChangeMessage = (UserBillStateChangeMessage)message;
+                //验重
+                key = this.getClass().getSimpleName() + ":" + UserBillStateChangeMessage.class.getSimpleName();
+                hashKey = userBillStateChangeMessage.getUserId() + ":" + userBillStateChangeMessage.getOldBill().getId() + ":" + userBillStateChangeMessage.getNewState();
+                isProcess = redisTemplate.opsForHash().putIfAbsent(key,hashKey,null);
+                if(!isProcess)
+                    return;
+
                 SuBillEntity userBill = userBillStateChangeMessage.getOldBill();
                 if(!CollUtil.newArrayList(
                         BillTypeConstant.BUY_NORMAL,
@@ -144,6 +162,13 @@ public class SummaryHandler implements MessageHandler {
 
             if(message instanceof UserAddProxyMessage){
                 UserAddProxyMessage userAddProxyMessage = (UserAddProxyMessage)message;
+                //验重
+                key = this.getClass().getSimpleName() + ":" + UserAddProxyMessage.class.getSimpleName();
+                hashKey = userAddProxyMessage.getUserId() + ":" + userAddProxyMessage.getProxyUser().getId();
+                isProcess = redisTemplate.opsForHash().putIfAbsent(key,hashKey,null);
+                if(!isProcess)
+                    return;
+
                 //设置锁定用户
                 suSummaryEntity.setTotalProxyUser(suSummaryEntity.getTotalProxyUser() == null ? 1 : suSummaryEntity.getTotalProxyUser() + 1);
             }

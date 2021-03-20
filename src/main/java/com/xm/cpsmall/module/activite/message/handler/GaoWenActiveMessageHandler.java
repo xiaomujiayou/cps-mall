@@ -38,8 +38,6 @@ public class GaoWenActiveMessageHandler implements MessageHandler {
     private RedisLockRegistry redisLockRegistry;
     @Autowired
     private ActiviteBillService activiteBillService;
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
 
     @Override
     public List<Class> getType() {
