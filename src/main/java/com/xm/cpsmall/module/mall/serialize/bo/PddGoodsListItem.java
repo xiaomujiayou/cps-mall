@@ -7,6 +7,7 @@ import java.util.List;
 @Data
 public class PddGoodsListItem {
     private Long goodsId;
+    private String goodsSign;
     private String goodsName;
     private String goodsDesc;
     private String goodsThumbnailUrl;

@@ -72,23 +72,7 @@ public class GoodsListServiceImpl implements GoodsListService {
             addSearchForm.setKeyWords(keywordGoodsListForm.getKeywords());
             searchService.add(keywordGoodsListForm.getUserId(),addSearchForm.getKeyWords());
         }
-        return keyworkSearch(keywordGoodsListForm.getUserId(),keywordGoodsListForm.getPid(),keywordGoodsListForm);
-    }
-
-    private PageBean<SmProductEntityEx> keyworkSearch(Integer userId,String pid, KeywordGoodsListForm keywordGoodsListForm) throws Exception {
-        ProductCriteriaBo productCriteriaBo = new ProductCriteriaBo();
-        productCriteriaBo.setPid(pid);
-        productCriteriaBo.setUserId(userId);
-        productCriteriaBo.setPageNum(keywordGoodsListForm.getPageNum());
-        productCriteriaBo.setPageSize(keywordGoodsListForm.getPageSize());
-        productCriteriaBo.setOrderBy(keywordGoodsListForm.getSort());
-        productCriteriaBo.setHasCoupon(keywordGoodsListForm.getHasCoupon());
-        if(keywordGoodsListForm.getMinPrice() != null && keywordGoodsListForm.getMaxPrice() != null){
-            productCriteriaBo.setMinPrice(keywordGoodsListForm.getMinPrice());
-            productCriteriaBo.setMaxPrice(keywordGoodsListForm.getMaxPrice());
-        }
-        productCriteriaBo.setKeyword(keywordGoodsListForm.getKeywords());
-        return mgjSdkComponent.convertSmProductEntityEx(userId,mgjSdkComponent.getProductByCriteria(productCriteriaBo));
+        return mgjSdkComponent.keyworkSearch(keywordGoodsListForm.getUserId(),keywordGoodsListForm.getPid(),keywordGoodsListForm);
     }
 
     @Override
@@ -105,7 +89,7 @@ public class GoodsListServiceImpl implements GoodsListService {
         KeywordGoodsListForm keywordGoodsListForm = new KeywordGoodsListForm();
         BeanUtil.copyProperties(optionGoodsListForm,keywordGoodsListForm);
         keywordGoodsListForm.setKeywords(keyWords);
-        return keyworkSearch(optionGoodsListForm.getUserId(),optionGoodsListForm.getPid(),keywordGoodsListForm);
+        return mgjSdkComponent.keyworkSearch(optionGoodsListForm.getUserId(),optionGoodsListForm.getPid(),keywordGoodsListForm);
     }
 
     @Override
@@ -117,7 +101,7 @@ public class GoodsListServiceImpl implements GoodsListService {
         BeanUtil.copyProperties(similarGoodsListForm,keywordGoodsListForm);
         keywordGoodsListForm.setKeywords(smProductEntity.getName());
         keywordGoodsListForm.setSort(3);
-        PageBean<SmProductEntityEx> productEntityExPageBean = keyworkSearch(similarGoodsListForm.getUserId(),similarGoodsListForm.getPid(),keywordGoodsListForm);
+        PageBean<SmProductEntityEx> productEntityExPageBean = mgjSdkComponent.keyworkSearch(similarGoodsListForm.getUserId(),similarGoodsListForm.getPid(),keywordGoodsListForm);
         productEntityExPageBean.setList(productEntityExPageBean.getList().stream().filter(o-> !smProductEntity.getGoodsId().equals(o.getGoodsId())).collect(Collectors.toList()));
         return productEntityExPageBean;
     }

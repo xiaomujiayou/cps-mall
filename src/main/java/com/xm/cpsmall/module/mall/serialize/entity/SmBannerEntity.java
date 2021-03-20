@@ -56,6 +56,11 @@ public class SmBannerEntity implements Serializable{
 	private Integer disable;
 
 	/**
+	 * 关键字
+	 */
+	private String keyWords;
+
+	/**
 	 * 排序(从大到小)
 	 */
 	private Integer sort;

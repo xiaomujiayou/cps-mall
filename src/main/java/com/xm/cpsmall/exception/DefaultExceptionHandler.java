@@ -1,6 +1,7 @@
 package com.xm.cpsmall.exception;
 
 import cn.hutool.core.util.StrUtil;
+import com.xm.cpsmall.filter.ResFilter;
 import com.xm.cpsmall.utils.response.Msg;
 import com.xm.cpsmall.utils.response.MsgEnum;
 import com.xm.cpsmall.utils.response.R;
@@ -23,6 +24,8 @@ public class DefaultExceptionHandler {
     @ResponseBody
     @ExceptionHandler(value = Exception.class)
     public Msg handle(Exception e) throws Exception {
+        //设置当前线程状态为异常
+        ResFilter.EXCEPTION_FLAG.set(true);
         e.printStackTrace();
         if(e instanceof GlobleException) {
             GlobleException ge = (GlobleException) e;
@@ -33,7 +36,6 @@ public class DefaultExceptionHandler {
         }else {
             return R.error(MsgEnum.UNKNOWN_ERROR);
         }
-
     }
 
     /**

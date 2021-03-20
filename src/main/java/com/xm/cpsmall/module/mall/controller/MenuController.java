@@ -55,7 +55,7 @@ public class MenuController {
             result = smMenuEntities.stream().map(o->{
                 MenuVo menuVo = new MenuVo();
                 BeanUtil.copyProperties(o,menuVo);
-                MenuTipVo target = tips.stream().filter(j->j.getMenuId() == o.getId()).findFirst().orElse(null);
+                MenuTipVo target = tips.stream().filter(j->j.getMenuId().equals(o.getId())).findFirst().orElse(null);
                 if(target == null)
                     return menuVo;
                 menuVo.setHot(target.getHot());

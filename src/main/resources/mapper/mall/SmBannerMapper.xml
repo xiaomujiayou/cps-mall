@@ -12,6 +12,7 @@
     <result column="target" property="target" jdbcType="INTEGER" />
     <result column="app_id" property="appId" jdbcType="VARCHAR" />
     <result column="disable" property="disable" jdbcType="INTEGER" />
+    <result column="key_words" property="keyWords" jdbcType="VARCHAR" />
     <result column="sort" property="sort" jdbcType="INTEGER" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>

@@ -11,4 +11,6 @@ import javax.validation.constraints.NotNull;
 public class ThemeGoodsListForm extends GoodsListForm{
     @NotNull(message = "themeId 不能为空")
     private Integer themeId;
+
+    private String keywords;
 }

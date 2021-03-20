@@ -8,12 +8,17 @@ import com.alibaba.fastjson.JSON;
 import com.pdd.pop.sdk.http.PopHttpClient;
 import com.pdd.pop.sdk.http.api.pop.request.*;
 import com.pdd.pop.sdk.http.api.pop.response.*;
+import com.xm.cpsmall.component.sdk.pdd.PddDdkThemeGoodsSearchRequest;
+import com.xm.cpsmall.component.sdk.pdd.PddDdkThemeGoodsSearchResponse;
+import com.xm.cpsmall.component.sdk.pdd.PddDdkThemeListGetRequest;
+import com.xm.cpsmall.component.sdk.pdd.PddDdkThemeListGetResponse;
 import com.xm.cpsmall.exception.GlobleException;
 import com.xm.cpsmall.module.mall.constant.*;
 import com.xm.cpsmall.module.mall.serialize.bo.*;
 import com.xm.cpsmall.module.mall.serialize.entity.SmConfigEntity;
 import com.xm.cpsmall.module.mall.serialize.entity.SmProductEntity;
 import com.xm.cpsmall.module.mall.serialize.ex.SmProductEntityEx;
+import com.xm.cpsmall.module.mall.serialize.form.KeywordGoodsListForm;
 import com.xm.cpsmall.module.mall.serialize.form.MallGoodsListForm;
 import com.xm.cpsmall.module.mall.serialize.vo.SmProductSimpleVo;
 import com.xm.cpsmall.module.mall.service.MallConfigService;
@@ -45,7 +50,6 @@ public class PddSdkComponent {
 
     /**
      * 查询商品接口
-     *
      * @param criteria
      * @return
      */
@@ -70,7 +74,7 @@ public class PddSdkComponent {
         request.setPageSize(criteria.getPageSize());
         request.setOptId(criteria.getOptionId() != null ? Long.valueOf(criteria.getOptionId()) : null);
         request.setKeyword(criteria.getKeyword());
-        request.setGoodsIdList(criteria.getGoodsIdList() != null ? criteria.getGoodsIdList().stream().map(Long::valueOf).collect(Collectors.toList()) : null);
+        request.setGoodsSignList(criteria.getGoodsIdList() != null ? criteria.getGoodsIdList().stream().collect(Collectors.toList()) : null);
         request.setSortType(criteria.getOrderBy(PlatformTypeConstant.PDD) == null ? null : Integer.valueOf(criteria.getOrderBy(PlatformTypeConstant.PDD).toString()));
         request.setActivityTags(criteria.getActivityTags());
         request.setWithCoupon(criteria.getHasCoupon());
@@ -108,18 +112,20 @@ public class PddSdkComponent {
      * 获取店铺商品
      */
     public PageBean<SmProductEntity> mallGoodsList(MallGoodsListForm mallGoodsListForm) throws Exception {
-        PddDdkMallGoodsListGetRequest request = new PddDdkMallGoodsListGetRequest();
-        request.setMallId(Long.valueOf(mallGoodsListForm.getMallId()));
-        request.setPageNumber(mallGoodsListForm.getPageNum());
-        request.setPageSize(mallGoodsListForm.getPageSize());
-        PddDdkMallGoodsListGetResponse response = popHttpClient.syncInvoke(request);
-        List<PddDdkMallGoodsListGetResponse.GoodsInfoListResponseGoodsListItem> list = response.getGoodsInfoListResponse().getGoodsList();
-        List<SmProductEntity> smProductEntityList = list.stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
-        return packageToPageBean(
-                smProductEntityList,
-                response.getGoodsInfoListResponse().getTotal().intValue(),
-                mallGoodsListForm.getPageNum(),
-                mallGoodsListForm.getPageSize());
+        throw new GlobleException(MsgEnum.SERVICE_OFF_SHELF);
+//        接口已下架
+//        PddDdkMallGoodsListGetRequest request = new PddDdkMallGoodsListGetRequest();
+//        request.setMallId(Long.valueOf(mallGoodsListForm.getMallId()));
+//        request.setPageNumber(mallGoodsListForm.getPageNum());
+//        request.setPageSize(mallGoodsListForm.getPageSize());
+//        PddDdkMallGoodsListGetResponse response = popHttpClient.syncInvoke(request);
+//        List<PddDdkMallGoodsListGetResponse.GoodsInfoListResponseGoodsListItem> list = response.getGoodsInfoListResponse().getGoodsList();
+//        List<SmProductEntity> smProductEntityList = list.stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
+//        return packageToPageBean(
+//                smProductEntityList,
+//                response.getGoodsInfoListResponse().getTotal().intValue(),
+//                mallGoodsListForm.getPageNum(),
+//                mallGoodsListForm.getPageSize());
     }
 
     /**
@@ -130,12 +136,10 @@ public class PddSdkComponent {
      */
     public List<SmProductEntity> details(List<String> goodsIds) throws Exception {
         PddDdkGoodsSearchRequest request = new PddDdkGoodsSearchRequest();
-        request.setGoodsIdList(goodsIds.stream().map(o -> Long.valueOf(o)).collect(Collectors.toList()));
+        request.setGoodsSignList(goodsIds.stream().collect(Collectors.toList()));
         PddDdkGoodsSearchResponse response = popHttpClient.syncInvoke(request);
         List<PddDdkGoodsSearchResponse.GoodsSearchResponseGoodsListItem> goodsList = response.getGoodsSearchResponse().getGoodsList();
-        List<SmProductEntity> smProductEntityList = goodsList.stream().map(o -> {
-            return convertGoodsList(o);
-        }).collect(Collectors.toList());
+        List<SmProductEntity> smProductEntityList = goodsList.stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
         return smProductEntityList;
     }
 
@@ -149,7 +153,7 @@ public class PddSdkComponent {
      */
     public SmProductEntity detail(String goodsId, String pid) throws Exception {
         PddDdkGoodsDetailRequest request = new PddDdkGoodsDetailRequest();
-        request.setGoodsIdList(Arrays.asList(Long.valueOf(goodsId)));
+        request.setGoodsSign(goodsId);
         request.setPid(pid);
         PddDdkGoodsDetailResponse response = popHttpClient.syncInvoke(request);
         if (response.getGoodsDetailResponse().getGoodsDetails() == null || response.getGoodsDetailResponse().getGoodsDetails().size() <= 0)
@@ -165,16 +169,18 @@ public class PddSdkComponent {
      * @throws Exception
      */
     public SmProductSimpleVo basicDetail(Long goodsId) throws Exception {
-        PddDdkGoodsBasicInfoGetRequest request = new PddDdkGoodsBasicInfoGetRequest();
-        request.setGoodsIdList(Arrays.asList(goodsId));
-        PddDdkGoodsBasicInfoGetResponse response = popHttpClient.syncInvoke(request);
-        SmProductSimpleVo smProductSimpleVo = new SmProductSimpleVo();
-        smProductSimpleVo.setGoodsId(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsId().toString());
-        smProductSimpleVo.setGoodsThumbnailUrl(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsPic());
-        smProductSimpleVo.setName(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsName());
-        smProductSimpleVo.setOriginalPrice(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getMinGroupPrice().intValue());
-        smProductSimpleVo.setType(PlatformTypeConstant.PDD);
-        return smProductSimpleVo;
+        throw new GlobleException(MsgEnum.SERVICE_OFF_SHELF);
+//        接口已下架
+//        PddDdkGoodsBasicInfoGetRequest request = new PddDdkGoodsBasicInfoGetRequest();
+//        request.setGoodsIdList(Arrays.asList(goodsId));
+//        PddDdkGoodsBasicInfoGetResponse response = popHttpClient.syncInvoke(request);
+//        SmProductSimpleVo smProductSimpleVo = new SmProductSimpleVo();
+//        smProductSimpleVo.setGoodsId(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsId().toString());
+//        smProductSimpleVo.setGoodsThumbnailUrl(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsPic());
+//        smProductSimpleVo.setName(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getGoodsName());
+//        smProductSimpleVo.setOriginalPrice(response.getGoodsBasicDetailResponse().getGoodsList().get(0).getMinGroupPrice().intValue());
+//        smProductSimpleVo.setType(PlatformTypeConstant.PDD);
+//        return smProductSimpleVo;
     }
 
     /**
@@ -189,7 +195,7 @@ public class PddSdkComponent {
     public ShareLinkBo getShareLink(String customParams, String pId, String goodsId, String couponId) throws Exception {
         PddDdkGoodsPromotionUrlGenerateRequest request = new PddDdkGoodsPromotionUrlGenerateRequest();
         request.setPId(pId);
-        request.setGoodsIdList(Arrays.asList(Long.valueOf(goodsId)));
+        request.setGoodsSignList(Arrays.asList(goodsId));
         request.setCustomParameters(customParams);
         request.setGenerateShortUrl(true);
         request.setGenerateWeApp(true);
@@ -244,12 +250,6 @@ public class PddSdkComponent {
      */
     @Cacheable(value = "pdd.getTopGoodsList", key = "#type + '_' + #pageNum + '_' + #pageSize ")
     public PageBean<SmProductEntity> getTopGoodsList(Integer type, String pid, Integer pageNum, Integer pageSize) throws Exception {
-//        PddDdkTopGoodsListQueryRequest request = new PddDdkTopGoodsListQueryRequest();
-//        request.setOffset(PageUtil.getStart(pageNum, pageSize));
-//        request.setLimit(pageSize);
-//        request.setSortType(type);
-//        request.setPId(pid);
-//        PddDdkTopGoodsListQueryResponse response = popHttpClient.syncInvoke(request);
         PddDdkGoodsRecommendGetRequest request = new PddDdkGoodsRecommendGetRequest();
         request.setOffset(PageUtil.getStart(pageNum, pageSize));
         request.setLimit(pageSize);
@@ -270,6 +270,8 @@ public class PddSdkComponent {
      */
     @Cacheable(value = "pdd.getThemeList")
     public List<PddThemeBo> getThemeList() throws Exception {
+//        throw new GlobleException(MsgEnum.SERVICE_OFF_SHELF);
+//        接口已下架
         PddDdkThemeListGetRequest request = new PddDdkThemeListGetRequest();
         PddDdkThemeListGetResponse response = popHttpClient.syncInvoke(request);
         List<PddThemeBo> list = response.getThemeListGetResponse().getThemeList().stream().map(o -> {
@@ -291,12 +293,12 @@ public class PddSdkComponent {
      */
     @Cacheable(value = "pdd.getThemeGoodsList", key = "#themeId")
     public PageBean<SmProductEntity> getThemeGoodsList(Integer themeId, String pid) throws Exception {
+//        throw new GlobleException(MsgEnum.SERVICE_OFF_SHELF);
+//        接口已下架
         PddDdkThemeGoodsSearchRequest request = new PddDdkThemeGoodsSearchRequest();
         request.setThemeId(themeId.longValue());
         PddDdkThemeGoodsSearchResponse response = popHttpClient.syncInvoke(request);
-        List<SmProductEntity> list = response.getThemeListGetResponse().getGoodsList().stream().map(o -> {
-            return convertGoodsList(o);
-        }).collect(Collectors.toList());
+        List<SmProductEntity> list = response.getThemeListGetResponse().getGoodsList().stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
         return packageToPageBean(
                 list,
                 response.getThemeListGetResponse().getTotal().intValue(),
@@ -319,9 +321,7 @@ public class PddSdkComponent {
         request.setLimit(pageSize);
         request.setPid(pid);
         PddDdkGoodsRecommendGetResponse response = popHttpClient.syncInvoke(request);
-        List<SmProductEntity> list = response.getGoodsBasicDetailResponse().getList().stream().map(o -> {
-            return convertGoodsList(o);
-        }).collect(Collectors.toList());
+        List<SmProductEntity> list = response.getGoodsBasicDetailResponse().getList().stream().map(o -> convertGoodsList(o)).collect(Collectors.toList());
         return packageToPageBean(
                 list,
                 response.getGoodsBasicDetailResponse().getTotal().intValue(),
@@ -371,6 +371,24 @@ public class PddSdkComponent {
         return productEntityExPageBean;
     }
 
+    public PageBean<SmProductEntityEx> keyworkSearch(Integer userId,String pid, KeywordGoodsListForm keywordGoodsListForm) throws Exception {
+        ProductCriteriaBo productCriteriaBo = new ProductCriteriaBo();
+        productCriteriaBo.setPid(pid);
+        productCriteriaBo.setUserId(userId);
+        productCriteriaBo.setPageNum(keywordGoodsListForm.getPageNum());
+        productCriteriaBo.setPageSize(keywordGoodsListForm.getPageSize());
+        productCriteriaBo.setOrderBy(keywordGoodsListForm.getSort());
+        productCriteriaBo.setHasCoupon(keywordGoodsListForm.getHasCoupon());
+        if(keywordGoodsListForm.getMinPrice() != null && keywordGoodsListForm.getMaxPrice() != null){
+            productCriteriaBo.setMinPrice(keywordGoodsListForm.getMinPrice());
+            productCriteriaBo.setMaxPrice(keywordGoodsListForm.getMaxPrice());
+        }
+        productCriteriaBo.setKeyword(keywordGoodsListForm.getKeywords());
+        return convertSmProductEntityEx(
+                userId,
+                getProductByCriteria(productCriteriaBo));
+    }
+
     private PageBean<SmProductEntity> packageToPageBean(List<SmProductEntity> list, Integer total, Integer pageNum, Integer pageSize) {
         list = CollUtil.removeNull(list);
 
@@ -411,7 +429,7 @@ public class PddSdkComponent {
         BeanUtil.copyProperties(listItem, pddGoodsListItem);
         SmProductEntity smProductEntity = new SmProductEntity();
         smProductEntity.setType(PlatformTypeConstant.PDD);
-        smProductEntity.setGoodsId(pddGoodsListItem.getGoodsId().toString());
+        smProductEntity.setGoodsId(pddGoodsListItem.getGoodsSign());
         smProductEntity.setGoodsThumbnailUrl(pddGoodsListItem.getGoodsThumbnailUrl());
         smProductEntity.setName(pddGoodsListItem.getGoodsName());
         smProductEntity.setOriginalPrice(pddGoodsListItem.getMinGroupPrice().intValue());
@@ -434,7 +452,7 @@ public class PddSdkComponent {
     private SmProductEntity convertDetail(PddDdkGoodsDetailResponse.GoodsDetailResponseGoodsDetailsItem detailsItem) {
         SmProductEntity smProductEntity = new SmProductEntity();
         smProductEntity.setType(PlatformTypeConstant.PDD);
-        smProductEntity.setGoodsId(detailsItem.getGoodsId().toString());
+        smProductEntity.setGoodsId(detailsItem.getGoodsSign());
         smProductEntity.setGoodsThumbnailUrl(detailsItem.getGoodsImageUrl());
         smProductEntity.setGoodsGalleryUrls(String.join(",", detailsItem.getGoodsGalleryUrls()));
         smProductEntity.setName(detailsItem.getGoodsName());
@@ -504,6 +522,4 @@ public class PddSdkComponent {
         params.put("uid", userId);
         return isRecord(pid, JSON.toJSONString(params));
     }
-
-
 }

@@ -32,7 +32,8 @@ public enum  MsgEnum {
 
     /* 服务系列*/
     SERVICE_AVAILABLE(10401,"服务不可用"),
-    SERVICE_UNKNOW(10401,"未知服务"),
+    SERVICE_UNKNOW(10402,"未知服务"),
+    SERVICE_OFF_SHELF(10403,"服务已下架"),
 
     /* 用户系列 */
     USER_NOFOUND_ERROR(100501,"用户不存在"),

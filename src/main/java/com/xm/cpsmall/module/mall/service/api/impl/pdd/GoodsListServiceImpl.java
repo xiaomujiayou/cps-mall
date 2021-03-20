@@ -73,7 +73,7 @@ public class GoodsListServiceImpl implements GoodsListService {
             addSearchForm.setKeyWords(keywordGoodsListForm.getKeywords());
             searchService.add(keywordGoodsListForm.getUserId(),addSearchForm.getKeyWords());
         }
-        return keyworkSearch(keywordGoodsListForm.getUserId(),keywordGoodsListForm.getPid(),keywordGoodsListForm);
+        return pddSdkComponent.keyworkSearch(keywordGoodsListForm.getUserId(),keywordGoodsListForm.getPid(),keywordGoodsListForm);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class GoodsListServiceImpl implements GoodsListService {
         keywordGoodsListForm.setSort(3);
         keywordGoodsListForm.setPageNum(similarGoodsListForm.getPageNum());
         keywordGoodsListForm.setPageSize(similarGoodsListForm.getPageSize());
-        PageBean<SmProductEntityEx> productEntityExPageBean = keyworkSearch(
+        PageBean<SmProductEntityEx> productEntityExPageBean = pddSdkComponent.keyworkSearch(
                 similarGoodsListForm.getUserId(),
                 similarGoodsListForm.getPid(),
                 keywordGoodsListForm);
@@ -119,21 +119,5 @@ public class GoodsListServiceImpl implements GoodsListService {
                 pddSdkComponent.mallGoodsList(mallGoodsListForm));
     }
 
-    private PageBean<SmProductEntityEx> keyworkSearch(Integer userId,String pid, KeywordGoodsListForm keywordGoodsListForm) throws Exception {
-        ProductCriteriaBo productCriteriaBo = new ProductCriteriaBo();
-        productCriteriaBo.setPid(pid);
-        productCriteriaBo.setUserId(userId);
-        productCriteriaBo.setPageNum(keywordGoodsListForm.getPageNum());
-        productCriteriaBo.setPageSize(keywordGoodsListForm.getPageSize());
-        productCriteriaBo.setOrderBy(keywordGoodsListForm.getSort());
-        productCriteriaBo.setHasCoupon(keywordGoodsListForm.getHasCoupon());
-        if(keywordGoodsListForm.getMinPrice() != null && keywordGoodsListForm.getMaxPrice() != null){
-            productCriteriaBo.setMinPrice(keywordGoodsListForm.getMinPrice());
-            productCriteriaBo.setMaxPrice(keywordGoodsListForm.getMaxPrice());
-        }
-        productCriteriaBo.setKeyword(keywordGoodsListForm.getKeywords());
-        return pddSdkComponent.convertSmProductEntityEx(
-                userId,
-                pddSdkComponent.getProductByCriteria(productCriteriaBo));
-    }
+
 }

@@ -15,6 +15,7 @@ import com.xm.cpsmall.module.mall.serialize.bo.ProductCriteriaBo;
 import com.xm.cpsmall.module.mall.serialize.bo.ShareLinkBo;
 import com.xm.cpsmall.module.mall.serialize.entity.SmProductEntity;
 import com.xm.cpsmall.module.mall.serialize.ex.SmProductEntityEx;
+import com.xm.cpsmall.module.mall.serialize.form.KeywordGoodsListForm;
 import com.xm.cpsmall.module.mall.serialize.vo.SmProductSimpleVo;
 import com.xm.cpsmall.module.mall.service.ProfitService;
 import com.xm.cpsmall.utils.GoodsPriceUtil;
@@ -165,5 +166,21 @@ public class MgjSdkComponent {
         productEntityExPageBean.setPageSize(pageBean.getPageSize());
         productEntityExPageBean.setTotal(pageBean.getTotal());
         return productEntityExPageBean;
+    }
+
+    public PageBean<SmProductEntityEx> keyworkSearch(Integer userId,String pid, KeywordGoodsListForm keywordGoodsListForm) throws Exception {
+        ProductCriteriaBo productCriteriaBo = new ProductCriteriaBo();
+        productCriteriaBo.setPid(pid);
+        productCriteriaBo.setUserId(userId);
+        productCriteriaBo.setPageNum(keywordGoodsListForm.getPageNum());
+        productCriteriaBo.setPageSize(keywordGoodsListForm.getPageSize());
+        productCriteriaBo.setOrderBy(keywordGoodsListForm.getSort());
+        productCriteriaBo.setHasCoupon(keywordGoodsListForm.getHasCoupon());
+        if(keywordGoodsListForm.getMinPrice() != null && keywordGoodsListForm.getMaxPrice() != null){
+            productCriteriaBo.setMinPrice(keywordGoodsListForm.getMinPrice());
+            productCriteriaBo.setMaxPrice(keywordGoodsListForm.getMaxPrice());
+        }
+        productCriteriaBo.setKeyword(keywordGoodsListForm.getKeywords());
+        return convertSmProductEntityEx(userId,getProductByCriteria(productCriteriaBo));
     }
 }

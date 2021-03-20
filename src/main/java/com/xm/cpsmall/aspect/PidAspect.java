@@ -1,6 +1,7 @@
 package com.xm.cpsmall.aspect;
 
 import cn.hutool.core.codec.Base64;
+import cn.hutool.core.util.ObjectUtil;
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.xm.cpsmall.annotation.Pid;
@@ -62,12 +63,12 @@ public class PidAspect {
         }
 
         HttpServletRequest request =((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        Object userObj = request.getSession().getAttribute(RequestHeaderConstant.USER_INFO);
         String platformType = request.getHeader(RequestHeaderConstant.PLATFORM_TYPE);
-        String userInfo = request.getHeader(RequestHeaderConstant.USER_INFO);
-        if(annotation.necessary() && StrUtil.hasBlank(userInfo,platformType))
+        if(annotation.necessary() && ObjectUtil.hasEmpty(userObj,platformType))
             return R.error(MsgEnum.SYSTEM_INVALID_USER_ERROR);
 
-        SuUserEntity suUserEntity = JSON.parseObject(Base64.decodeStr(userInfo),SuUserEntity.class);
+        SuUserEntity suUserEntity = (SuUserEntity)userObj;
         SuPidEntity suPidEntity = pidService.getPid(suUserEntity.getPid());
 
         String pid = null;

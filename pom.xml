@@ -91,7 +91,7 @@
             <groupId>com.xm.pdd</groupId>
             <artifactId>pop-sdk</artifactId>
             <classifier>all</classifier>
-            <version>1.9.72</version>
+            <version>1.10.53</version>
         </dependency>
 
         <!--分页相关-->

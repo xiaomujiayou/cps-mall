@@ -7,6 +7,7 @@ import com.xm.cpsmall.module.mall.serialize.ex.SmProductEntityEx;
 import com.xm.cpsmall.module.mall.serialize.form.GoodsListForm;
 import com.xm.cpsmall.module.mall.serialize.form.ThemeGoodsListForm;
 import com.xm.cpsmall.module.mall.service.api.OptGoodsListService;
+import com.xm.cpsmall.module.mall.service.api.impl.abs.OptGoodsListServiceAbs;
 import com.xm.cpsmall.utils.mybatis.PageBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,19 +15,19 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service("pddOptGoodsListService")
-public class OptGoodsListServiceImpl implements OptGoodsListService {
+public class OptGoodsListServiceImpl extends OptGoodsListServiceAbs {
 
     @Autowired
     private PddSdkComponent pddSdkComponent;
 
-    @Override
-    public PageBean<SmProductEntityEx> theme(ThemeGoodsListForm themeGoodsListForm) throws Exception {
-        return pddSdkComponent.convertSmProductEntityEx(
-                themeGoodsListForm.getUserId(),
-                pddSdkComponent.getThemeGoodsList(
-                        themeGoodsListForm.getThemeId(),
-                        themeGoodsListForm.getPid()));
-    }
+//    @Override
+//    public PageBean<SmProductEntityEx> theme(ThemeGoodsListForm themeGoodsListForm) throws Exception {
+//        return pddSdkComponent.convertSmProductEntityEx(
+//                themeGoodsListForm.getUserId(),
+//                pddSdkComponent.getThemeGoodsList(
+//                        themeGoodsListForm.getThemeId(),
+//                        themeGoodsListForm.getPid()));
+//    }
 
     @Override
     public PageBean<SmProductEntityEx> one(GoodsListForm goodsListForm) throws Exception {

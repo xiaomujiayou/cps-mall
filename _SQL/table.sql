@@ -253,10 +253,11 @@ CREATE TABLE `sm_banner` (
   `target` int(1) DEFAULT NULL COMMENT '目标(1:普通url跳转,2:小程序跳转,3:唤醒其他小程序,4:唤醒app,5:客服消息)',
   `app_id` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '目标小程序appId',
   `disable` int(1) DEFAULT '1' COMMENT '是否可用(0:不可用,1：可用)',
+  `key_words` varchar(128) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '关键字',
   `sort` int(11) DEFAULT NULL COMMENT '排序(从大到小)',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
 
 /*Table structure for table `sm_config` */
 
