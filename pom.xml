@@ -19,6 +19,19 @@
         <java.version>1.8</java.version>
     </properties>
 
+    <repositories>
+        <repository>
+            <id>alimaven</id>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <layout>default</layout>
+        </repository>
+        <!-- 私有仓库，速度较慢，拥有全部jar包 -->
+        <repository>
+            <id>nexus</id>
+            <url>http://129.226.118.240:8081/repository/maven-public/</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <!-- 谷歌二维码 -->
         <dependency>
