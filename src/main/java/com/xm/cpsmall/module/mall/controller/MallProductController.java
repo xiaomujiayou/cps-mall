@@ -176,19 +176,20 @@ public class MallProductController {
         if(goodsSpec.getParseType() == 1){
             //解析为具体商品
             if(goodsSpec.getPlatformType() == PlatformTypeConstant.PDD){
-                try {
-                    GoodsDetailForm goodsDetailForm = new GoodsDetailForm();
-                    BeanUtil.copyProperties(urlParseForm,goodsDetailForm);
-                    goodsDetailForm.setGoodsId(goodsSpec.getGoodsId());
-                    goodsDetailForm.setPlatformType(goodsSpec.getPlatformType());
-                    goodsSpec.setGoodsInfo(praseDetailVo(mallProductController.getDetailEx(goodsDetailForm)));
-                }catch (ApiCallException e){
-                    goodsSpec.setParseType(4);
-//                    BaseGoodsDetailForm baseGoodsDetailForm = new BaseGoodsDetailForm();
-//                    BeanUtil.copyProperties(urlParseForm,baseGoodsDetailForm);
-//                    baseGoodsDetailForm.setGoodsId(goodsSpec.getGoodsId());
-//                    goodsSpec.setSimpleInfo(goodsService.basicDetail(baseGoodsDetailForm));
-                }
+                throw new GlobleException(MsgEnum.SERVICE_OFF_SHELF,"拼多多商品请复制商品标题搜索！");
+//                try {
+//                    GoodsDetailForm goodsDetailForm = new GoodsDetailForm();
+//                    BeanUtil.copyProperties(urlParseForm,goodsDetailForm);
+//                    goodsDetailForm.setGoodsId(goodsSpec.getGoodsId());
+//                    goodsDetailForm.setPlatformType(goodsSpec.getPlatformType());
+//                    goodsSpec.setGoodsInfo(praseDetailVo(mallProductController.getDetailEx(goodsDetailForm)));
+//                }catch (ApiCallException e){
+//                    goodsSpec.setParseType(4);
+////                    BaseGoodsDetailForm baseGoodsDetailForm = new BaseGoodsDetailForm();
+////                    BeanUtil.copyProperties(urlParseForm,baseGoodsDetailForm);
+////                    baseGoodsDetailForm.setGoodsId(goodsSpec.getGoodsId());
+////                    goodsSpec.setSimpleInfo(goodsService.basicDetail(baseGoodsDetailForm));
+//                }
             }else if(Arrays.asList(PlatformTypeConstant.MGJ,PlatformTypeConstant.WPH).contains(goodsSpec.getPlatformType())){
                 try {
                     GoodsDetailForm goodsDetailForm = new GoodsDetailForm();

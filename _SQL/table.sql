@@ -55,7 +55,7 @@ CREATE TABLE `sa_bill` (
   `fail_reason` text COLLATE utf8mb4_unicode_ci COMMENT '失败原因',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=249 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=945 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sa_cash_out_record` */
 
@@ -73,7 +73,7 @@ CREATE TABLE `sa_cash_out_record` (
   `ip` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT 'ip地址',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sa_config` */
 
@@ -107,7 +107,7 @@ CREATE TABLE `sc_bill_pay` (
   `update_time` datetime NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=41 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=45 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sc_mgj_order_record` */
 
@@ -139,7 +139,7 @@ CREATE TABLE `sc_order_state_record` (
   `update_time` datetime NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=109 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=120 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sc_order_sync_history` */
 
@@ -155,7 +155,7 @@ CREATE TABLE `sc_order_sync_history` (
   `page_size` int(11) DEFAULT NULL COMMENT '页面大小',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1774530 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2381413 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sc_wait_pay_bill` */
 
@@ -170,7 +170,7 @@ CREATE TABLE `sc_wait_pay_bill` (
   `state` int(1) DEFAULT NULL COMMENT '处理状态(1:待发放,2:发放中,3:已发放,4:发放失败)',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=97 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=115 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sl_prop` */
 
@@ -257,7 +257,7 @@ CREATE TABLE `sm_banner` (
   `sort` int(11) DEFAULT NULL COMMENT '排序(从大到小)',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sm_config` */
 
@@ -411,7 +411,7 @@ CREATE TABLE `sp_wx_ent_pay_order_in` (
   `state` int(1) DEFAULT NULL COMMENT '状态(1:付款成功,2:付款失败)',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=131 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=259 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sp_wx_order_in` */
 
@@ -522,7 +522,7 @@ CREATE TABLE `su_bill` (
   `update_time` datetime DEFAULT NULL COMMENT '最后更新时间',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_config` */
 
@@ -568,7 +568,7 @@ CREATE TABLE `su_menu_tips` (
   `update_time` datetime NOT NULL,
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3697 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=15085 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_order` */
 
@@ -591,6 +591,7 @@ CREATE TABLE `su_order` (
   `amount` int(11) DEFAULT NULL COMMENT '实际支付金额(分)',
   `promotion_rate` int(11) DEFAULT NULL COMMENT '佣金比例(千分比)',
   `promotion_amount` int(11) DEFAULT NULL COMMENT '佣金(分)',
+  `price_compare_status` int(1) DEFAULT NULL COMMENT '比价状态(0:正常,2:比价)',
   `type` int(1) DEFAULT NULL COMMENT '订单类型(0:领券页面,1:红包页,2:领券页,3:题页)',
   `form_type` int(1) DEFAULT NULL COMMENT '来源类型(1:普通自购,2:分享自购)',
   `share_user_id` int(11) DEFAULT NULL COMMENT '分享订单分享的用户id',
@@ -602,7 +603,7 @@ CREATE TABLE `su_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE` (`order_sub_sn`,`platform_type`),
   KEY `EXIST` (`order_sub_sn`)
-) ENGINE=InnoDB AUTO_INCREMENT=102 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=98 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_permission` */
 
@@ -655,7 +656,7 @@ CREATE TABLE `su_product` (
   UNIQUE KEY `UNIQUE` (`goods_id`,`platform_type`,`user_id`),
   KEY `EXIST` (`goods_id`,`platform_type`,`user_id`),
   KEY `QUEUE` (`user_id`,`is_collect`,`del`,`collect_time`,`update_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=7683 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=366987 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_role` */
 
@@ -692,7 +693,7 @@ CREATE TABLE `su_search` (
   `del` int(1) DEFAULT NULL COMMENT '是否删除(0:已删除,1未删除)',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=242 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=391 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_share` */
 
@@ -712,7 +713,7 @@ CREATE TABLE `su_share` (
   `create_time` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE` (`user_id`,`goods_id`,`platform_type`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_summary` */
 
@@ -736,7 +737,7 @@ CREATE TABLE `su_summary` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UNIQUE` (`user_id`),
   KEY `EXIST` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=284 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=786 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_user` */
 
@@ -744,7 +745,7 @@ DROP TABLE IF EXISTS `su_user`;
 
 CREATE TABLE `su_user` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_sn` varchar(32) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `user_sn` varchar(64) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `parent_id` int(11) DEFAULT NULL COMMENT '父用户id',
   `nickname` varchar(16) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT '微信昵称',
   `head_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'https://mall-share.oss-cn-shanghai.aliyuncs.com/comment/img/head-img%20.png' COMMENT '头像',
@@ -764,7 +765,7 @@ CREATE TABLE `su_user` (
   `last_login` datetime NOT NULL COMMENT '最后登录时间',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=1721 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3379 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `su_user_role_map` */
 
@@ -797,8 +798,10 @@ CREATE TABLE `sw_api_record` (
   `result` longtext COLLATE utf8mb4_unicode_ci COMMENT '响应结果',
   `time` int(11) DEFAULT NULL COMMENT '执行时间(毫秒)',
   `create_time` datetime NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=187656 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `unique` (`id`),
+  KEY `sort` (`create_time`)
+) ENGINE=InnoDB AUTO_INCREMENT=467159 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sw_credit_bill_bind_record` */
 
@@ -818,7 +821,7 @@ CREATE TABLE `sw_credit_bill_bind_record` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `EXIST` (`user_id`,`state`)
-) ENGINE=InnoDB AUTO_INCREMENT=91 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=69 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sw_credit_bill_conf` */
 
@@ -848,7 +851,7 @@ CREATE TABLE `sw_credit_bill_pay_record` (
   `fail_reason` text COLLATE utf8mb4_unicode_ci COMMENT '未通过原因',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=71 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sw_credit_conf` */
 
@@ -879,7 +882,7 @@ CREATE TABLE `sw_credit_record` (
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`),
   KEY `EXIST` (`user_id`,`type`,`create_time`)
-) ENGINE=InnoDB AUTO_INCREMENT=3751 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13057 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*Table structure for table `sw_login_record` */
 
@@ -894,7 +897,7 @@ CREATE TABLE `sw_login_record` (
   `ua` text COLLATE utf8mb4_unicode_ci COMMENT '浏览器UA',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12832 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=137854 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
