@@ -3,6 +3,7 @@ package com.xm.cpsmall.filter;
 
 import cn.hutool.core.io.IoUtil;
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.xm.cpsmall.utils.response.MsgEnum;
 import com.xm.cpsmall.utils.response.R;
 import com.xm.cpsmall.utils.response.ResponseWrapper;
@@ -56,8 +57,13 @@ public class ResFilter implements Filter {
         }else if(responseWrapper.getContentType().contains(APPLICATION_JSON_VALUE)) {
             String content = new String(responseWrapper.getContent());
             Object resObj = JSON.parse(content);
-            //接口有返回值则包装消息状态
-            result = JSON.toJSONString(R.sucess(resObj));
+            //已包含状态码code msg 的消息则原格式返回
+            if(resObj instanceof JSONObject && ((JSONObject) resObj).containsKey("code") && ((JSONObject) resObj).containsKey("msg")){
+                result = ((JSONObject) resObj).toJSONString();
+            }else {
+                //接口有返回值则包装消息状态
+                result = JSON.toJSONString(R.sucess(resObj));
+            }
         }else
             result = JSON.toJSONString(R.error(MsgEnum.UNKNOWN_ERROR,"未知请求类型！"));
         response.setContentLength(result.getBytes().length);
