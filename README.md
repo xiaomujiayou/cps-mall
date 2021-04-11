@@ -7,7 +7,7 @@
 
 
 ##### 扫码预览：
-![扫码预览](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/untitled.png?x-oss-process=image/resize,h_200,w_200 "扫码预览 ")
+![扫码预览](https://mall-share.oss-cn-shanghai.aliyuncs.com/share/untitled.png?x-oss-process=image/resize,h_200,w_200&r=411 "扫码预览")
 
 
 ------------
